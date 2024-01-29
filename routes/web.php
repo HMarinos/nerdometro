@@ -28,9 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/{category}', function () {
-    //     return view('category');
-    // });
+    Route::get('/category/{category}', function () {
+        return view('category');
+    });
 });
+
+use App\Http\Controllers\MovieController;
+
+Route::get('/fetch-and-store-movie', [MovieController::class, 'fetchAndStoreMovie']);
 
 require __DIR__.'/auth.php';
