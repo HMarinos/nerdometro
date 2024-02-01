@@ -33,8 +33,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MediaController;
 
-Route::get('/fetch-and-store-movie', [MovieController::class, 'fetchAndStoreMovie']);
+Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMovie']);
+Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
+Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 
 require __DIR__.'/auth.php';
