@@ -4,13 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Movie;
 
 class MediaController extends Controller
 {
     function fetchAndStoreMovie(){
         $apiKEY = '05abd598284193009c38291a6823dd0c';
-        $response = Http::get('https://api.themoviedb.org/3/movie/popular', ['api_key' => $apiKEY])->json();
-        dd($response);
+        // $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', ['api_key' => $apiKEY, 'page'=>1])->json();
+        $titles = [];
+        for ($page = 1; $page <= 10; $page++) {
+            $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', ['api_key' => $apiKEY, 'page' => $page])->json(); 
+            $titles = array_merge($titles, array_column($response['results'], 'title'));
+        }
+        foreach ($titles as $title) {
+            Movie::create([
+                'title' => $title,
+            ]);
+        }
+
+
+
     }
 
     function fetchAndStoreAnime(){
