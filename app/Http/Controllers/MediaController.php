@@ -12,12 +12,14 @@ class MediaController extends Controller
 {
     function fetchAndStoreMovie(){
         
-        $apiKEY = '05abd598284193009c38291a6823dd0c';
-        $response = Http::get('https://api.themoviedb.org/3/search/movie', [
-            'api_key' => $apiKey,
-            'query' => 'Inception'
+        $apiKey = '05abd598284193009c38291a6823dd0c';
+        $response = Http::get('https://api.themoviedb.org/3/movie/popular', [
+            'api_key' => $apiKey
+            // 'query' => 'incept'
         ])->json();
-        dd($response);
+        $movies = $response['results'];
+        dump($response['results']);
+        return(view('dashboard',['movies' => $movies]));
     }
 
     function fetchAndStoreAnime(){

@@ -16,4 +16,7 @@
             @endcomponent
         </div>
     </div>
+    <form method="GET" action="">
+        <input type="text" placeholder="search.." name="search"> 
+    </form>
 </section>
