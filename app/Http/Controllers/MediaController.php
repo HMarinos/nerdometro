@@ -11,26 +11,24 @@ use App\Models\Game;
 class MediaController extends Controller
 {
     function fetchAndStoreMovie(){
-        
         $apiKey = '05abd598284193009c38291a6823dd0c';
-        $response = Http::get('https://api.themoviedb.org/3/movie/popular', [
+        $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
             'api_key' => $apiKey
             // 'query' => 'incept'
         ])->json();
         $movies = $response['results'];
         dump($response['results']);
-        return(view('dashboard',['movies' => $movies]));
     }
 
     function fetchAndStoreAnime(){
-
-        $response = Http::get('https://api.jikan.moe/v4/anime?q=one')->json();
-        dd($response);
-
+        $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
+        $anime = $response['data'];
+        dump($anime);
     }
+    
     function fetchAndStoreGames(){
         $api_key = '925517f17a024b508da64ad9f4d7e388';
-        $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&search=league")->json();
-        dd($response);
+        $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
+        dump($response['results']);
     }
 }

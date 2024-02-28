@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard']) ->name("dashboard");
 
 
 Route::middleware('auth')->group(function () {
@@ -33,7 +35,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-use App\Http\Controllers\MediaController;
+
 
 Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMovie']);
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
