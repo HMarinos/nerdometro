@@ -17,7 +17,8 @@ class MediaController extends Controller
             // 'query' => 'incept'
         ])->json();
         $movies = $response['results'];
-        dump($response['results']);
+        dump($movies);
+        return $movies;
     }
 
     function fetchAndStoreAnime(){

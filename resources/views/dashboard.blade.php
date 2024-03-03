@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="mb-72">
-        <h2 class="text-center">Popular</h2>
+        <h2 class="text-center">Popular</h2>       
         @component('components.popular-tabs',['movies'=>$movies])
         @endcomponent
     </div>

@@ -5,9 +5,9 @@
 </div>
 
 <div id="London" class="tabcontent">
-  {{-- @foreach($movies as $movie)
-  <li>{{ $movie['title'] }}</li>
-  @endforeach --}}
+  @foreach($movies as $movie)
+    {{$movie['title']}}
+  @endforeach
 </div>
 
 <div id="Paris" class="tabcontent">
