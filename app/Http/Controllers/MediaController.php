@@ -25,11 +25,14 @@ class MediaController extends Controller
         $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
         $anime = $response['data'];
         dump($anime);
+        return $anime;
     }
     
     function fetchAndStoreGames(){
         $api_key = '925517f17a024b508da64ad9f4d7e388';
         $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
-        dump($response['results']);
+        $games = $response['results'];
+        dump($games);
+        return $games;
     }
 }
