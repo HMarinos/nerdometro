@@ -17,14 +17,14 @@ class MediaController extends Controller
             // 'query' => 'incept'
         ])->json();
         $movies = $response['results'];
-        dump($movies);
+        // dump($movies);
         return $movies;
     }
 
     function fetchAndStoreAnime(){
         $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
         $anime = $response['data'];
-        dump($anime);
+        // dump($anime);
         return $anime;
     }
     
@@ -32,7 +32,7 @@ class MediaController extends Controller
         $api_key = '925517f17a024b508da64ad9f4d7e388';
         $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
         $games = $response['results'];
-        dump($games);
+        // dump($games);
         return $games;
     }
 }
