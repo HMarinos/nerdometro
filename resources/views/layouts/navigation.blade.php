@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }"
-    class="bg-[rgba(153,50,204,0.85)] backdrop-blur-xl rounded-[0_0_15px_15px] z-50 text-white sticky w-full top-0">
+    class="bg-[#663399f8] backdrop-blur-xl rounded-[0_0_15px_15px] z-50 text-white sticky w-full top-0 shadow-[0_0_20px_rgba(0,0,0,0.8)]">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  text-white">
         <div class="flex justify-between h-16">
