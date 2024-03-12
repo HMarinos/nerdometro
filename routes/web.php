@@ -5,7 +5,7 @@ use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AnimeController;
+use App\Http\controllers\AnimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'dashboard']) ->name("dashboard");
 
 
@@ -35,7 +32,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/{category}', function () {
         return view('category');
     });
-    Route::get('/anime-single',[AnimeController::class,'showSingleAnime']);
 });
 
 
@@ -44,5 +40,6 @@ Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMov
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
+Route::get('/single-anime', [AnimeController::class,'showSingleAnime']);
 
 require __DIR__.'/auth.php';
