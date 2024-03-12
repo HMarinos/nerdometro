@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AnimeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,12 +35,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/{category}', function () {
         return view('category');
     });
+    Route::get('/anime-single',[AnimeController::class,'showSingleAnime']);
 });
 
 
 
 Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMovie']);
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
+Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 
 require __DIR__.'/auth.php';

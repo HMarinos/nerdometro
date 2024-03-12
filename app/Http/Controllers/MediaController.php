@@ -24,7 +24,7 @@ class MediaController extends Controller
     function fetchAndStoreAnime(){
         $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
         $anime = $response['data'];
-        // dump($anime);
+        dump($anime);
         return $anime;
     }
     

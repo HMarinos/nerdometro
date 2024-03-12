@@ -10,8 +10,7 @@
                 class="rounded-lg border cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                 <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
                     src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}">
-                <div
-                    class="title">
+                <div class="title">
                     {{ $movie['title'] }}
                 </div>
                 <div class="more_info">
@@ -30,20 +29,18 @@
 <div id="Anime" class="tabcontent hidden">
     <ul class="grid grid-cols-6 gap-4">
         @foreach ($anime as $anime)
-            <li
-                class="rounded-lg flex flex-col justify-between items-center group overflow-hidden">
+            <li class="rounded-lg flex flex-col justify-between items-center group overflow-hidden">
                 <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
                     src="{{ $anime['images']['jpg']['large_image_url'] }}" alt="">
-                <div
-                    class="title">
-                    {{ $anime['title'] }}
+                <div class="title">
+                    <a href="/anime/{{ $anime['mal_id'] }}" class="z-20">{{ $anime['title'] }}</a>
                 </div>
                 <div class="more_info">
                     <div>
                         <p>watch trailer</p>
                         <p>add to list</p>
                         <p>rate</p>
-                        <p>details</p>
+                        <a href="" class="text-blue-700 hover:text-red-700">details</a>
                     </div>
                 </div>
             </li>
@@ -54,12 +51,10 @@
 <div id="Games" class="tabcontent hidden">
     <ul class="grid grid-cols-6 gap-4">
         @foreach ($games as $game)
-            <li
-                class="rounded-lg cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
-                    src="{{ $game['background_image'] }}" alt="">
-                <div
-                    class="title">
+            <li class="rounded-lg cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="{{ $game['background_image'] }}"
+                    alt="">
+                <div class="title">
                     {{ $game['name'] }}
                 </div>
                 <div class="more_info">
