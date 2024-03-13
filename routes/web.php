@@ -40,6 +40,6 @@ Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMov
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
-Route::get('/single-anime', [AnimeController::class,'showSingleAnime']);
+Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 
 require __DIR__.'/auth.php';
