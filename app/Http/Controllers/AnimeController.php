@@ -15,7 +15,7 @@ class AnimeController extends Controller
         $anime = $response['data'];
         dump($anime);
         dump($id);
-        return view('single');
+        return view('single',['anime'=> $anime]);
     }
     
 }
