@@ -14,17 +14,16 @@ class MediaController extends Controller
         $apiKey = '05abd598284193009c38291a6823dd0c';
         $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
             'api_key' => $apiKey
-            // 'query' => 'incept'
         ])->json();
         $movies = $response['results'];
-        // dump($movies);
+        dump($movies);
         return $movies;
     }
 
     function fetchAndStoreAnime(){
         $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
         $anime = $response['data'];
-        dump($anime);
+        // dump($anime);
         return $anime;
     }
     

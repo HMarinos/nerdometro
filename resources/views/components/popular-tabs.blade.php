@@ -11,15 +11,7 @@
                 <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
                     src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}">
                 <div class="title">
-                    {{ $movie['title'] }}
-                </div>
-                <div class="more_info">
-                    <div>
-                        <p>watch trailer</p>
-                        <p>add to list</p>
-                        <p>rate</p>
-                        <p>details</p>
-                    </div>
+                    <a href="/movie/{{$movie['id']}}">{{ $movie['title'] }}</a>
                 </div>
             </li>
         @endforeach
@@ -35,14 +27,6 @@
                 <div class="title">
                     <a href="/anime/{{ $anime['mal_id'] }}" class="z-20">{{ $anime['title'] }}</a>
                 </div>
-                <div class="more_info">
-                    <div>
-                        <p>watch trailer</p>
-                        <p>add to list</p>
-                        <p>rate</p>
-                        <a href="" class="text-blue-700 hover:text-red-700">details</a>
-                    </div>
-                </div>
             </li>
         @endforeach
     </ul>
@@ -56,14 +40,6 @@
                     alt="">
                 <div class="title">
                     {{ $game['name'] }}
-                </div>
-                <div class="more_info">
-                    <div>
-                        <p>watch trailer</p>
-                        <p>add to list</p>
-                        <p>rate</p>
-                        <p>details</p>
-                    </div>
                 </div>
             </li>
         @endforeach

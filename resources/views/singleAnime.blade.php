@@ -26,5 +26,6 @@
             <li>{{$anime['rating']}}</li>
             <li>{{$anime['episodes']}} episodes</li>
         </ul>
+        <div>{{$anime['synopsis']}}</div>
     </div>
 </section>

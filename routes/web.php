@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\controllers\AnimeController;
+use App\Http\controllers\MovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +42,6 @@ Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnim
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
+Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 
 require __DIR__.'/auth.php';

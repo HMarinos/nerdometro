@@ -14,8 +14,7 @@ class AnimeController extends Controller
         $response = Http::get($url)->json();
         $anime = $response['data'];
         dump($anime);
-        dump($id);
-        return view('single',['anime'=> $anime]);
+        return view('singleAnime',['anime'=> $anime]);
     }
     
 }
