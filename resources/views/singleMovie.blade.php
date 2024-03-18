@@ -1,4 +1,4 @@
-<section>
+<section class="single single-movie">
     <img src="" alt="">
     <div class="info">
         <h1>{{$movie['title']}}</h1>

@@ -16,7 +16,7 @@ class MovieController extends Controller
             'api_key' => $apiKey
         ])->json();
         
-        dump($response);
+        // dump($response);
         // dump($response_video['results']);
 
         $objects = $response_video['results'];
@@ -29,7 +29,7 @@ class MovieController extends Controller
                 break; 
             }
         }
-        dump($firstTrailerObject);
+        // dump($firstTrailerObject);
         
         return view('singleMovie',['movie'=>$response,'video'=>$firstTrailerObject]);
     }

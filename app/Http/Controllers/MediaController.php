@@ -16,7 +16,7 @@ class MediaController extends Controller
             'api_key' => $apiKey
         ])->json();
         $movies = $response['results'];
-        dump($movies);
+        // dump($movies);
         return $movies;
     }
 

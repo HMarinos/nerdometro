@@ -13,7 +13,7 @@ class AnimeController extends Controller
         $url = 'https://api.jikan.moe/v4/anime/' . $id . '/full';
         $response = Http::get($url)->json();
         $anime = $response['data'];
-        dump($anime);
+        // dump($anime);
         return view('singleAnime',['anime'=> $anime]);
     }
     

@@ -7,6 +7,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\controllers\AnimeController;
 use App\Http\controllers\MovieController;
+use App\Http\controllers\GamesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,6 @@ Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGame
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
+Route::get('/game/{id}', [GamesController::class,'showSingleGame']);
 
 require __DIR__.'/auth.php';

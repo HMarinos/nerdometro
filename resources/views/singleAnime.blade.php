@@ -1,13 +1,10 @@
-<section>
-    <img src="" alt="">
+<section class="signle signle-anime">
     <div class="info">
         <h1>{{ $anime['title'] }}</h1>
         <div>
             <ul>
                 <li>{{$anime['year']}}</li>
                 <li>{{$anime['type']}}</li>
-                
-                
                 <li>{{$anime['score']}}/10</li>
             </ul>
         </div>

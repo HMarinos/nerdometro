@@ -39,7 +39,7 @@
                 <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="{{ $game['background_image'] }}"
                     alt="">
                 <div class="title">
-                    {{ $game['name'] }}
+                    <a href="/game/{{$game['id']}}">{{ $game['name'] }}</a>
                 </div>
             </li>
         @endforeach
