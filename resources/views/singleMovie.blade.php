@@ -12,7 +12,7 @@
     <div>
     <div class="media">
         <img src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}" alt="">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$video['key']}}?si=-MvG6LyMyhOJ7Kir" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" controls=0 src="https://www.youtube.com/embed/{{$video['key']}}?si=-MvG6LyMyhOJ7Kir" title="YouTube video player" frameborder="0" allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     <div class="details">
         <ul class="genres">

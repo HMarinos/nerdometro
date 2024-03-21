@@ -24,6 +24,7 @@
                 <li>{{$platform['platform']['name']}}</li>
                 @endforeach
             </ul>
+            <div>{{$game['description']}}</div>
         </div>
     </div>
 </section>

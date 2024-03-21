@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    list-style-type: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
 .tabcontent ul li {
     background-color: black;
     border: 1px solid black;
@@ -61,4 +67,10 @@
 
 main h2 {
     font-size: 24px;
+}
+
+.single .info .top-bar ul {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
