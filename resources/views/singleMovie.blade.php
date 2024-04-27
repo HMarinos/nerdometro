@@ -20,10 +20,6 @@
                 <li>{{$genre['name']}}</li>
             @endforeach
         </ul>
-        <ul>
-            <li></li>
-            <li></li>
-        </ul>
         <div>{{$movie['overview']}}</div>
     </div>
 </section>
