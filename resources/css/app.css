@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    list-style-type: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
 .tabcontent ul li {
     background-color: black;
     border: 1px solid black;
@@ -61,4 +67,41 @@
 
 main h2 {
     font-size: 24px;
+}
+
+.single .info .top-bar {
+    margin-bottom: 2rem;
+}
+.single .info .top-bar ul {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 0.2rem;
+    flex-direction: column;
+    border-left: 1px solid rebeccapurple;
+    padding-left: 0.5rem;
+}
+
+.single h1 {
+    font-size: 34px;
+    margin-bottom: 1rem;
+}
+.single .media {
+    display: flex;
+    gap: 0.2rem;
+}
+.single .media img {
+    max-height: 315px;
+}
+.single .genres {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.single .genres li {
+    padding: 0.2rem 0.8rem;
+    border: 1px solid rebeccapurple;
+    border-radius: 4px;
 }

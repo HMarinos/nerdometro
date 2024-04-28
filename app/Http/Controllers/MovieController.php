@@ -18,9 +18,8 @@ class MovieController extends Controller
         $release_dates = Http::get('https://api.themoviedb.org/3/movie/' . $id . '/release_dates', [
             'api_key' => $apiKey
         ])->json();
-        
-        dump($release_dates);
-        dump($response);
+
+
         $objects = $response_video['results'];
         
         $firstTrailerObject = null;
@@ -30,7 +29,9 @@ class MovieController extends Controller
                 $firstTrailerObject = $object;
                 break; 
             }
-        }        
+        }
+        // dump($firstTrailerObject);
+        
         return view('singleMovie',['movie'=>$response,'video'=>$firstTrailerObject]);
     }
 }
