@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/category/{category}',[AnimeSearchController::class,'animeSearch']);
     // Route::get('/category/{category}', function () {
     //     return view('category');
     // });
@@ -43,9 +44,9 @@ Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMov
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
-Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
+Route::get('/anime/{id}', [AnimeController::class,'addTestAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 Route::get('/game/{id}', [GamesController::class,'showSingleGame']);
-Route::get('/category/{id}', [AnimeSearchController::class,'animeSearch']);
+// Route::get('/category/{id}', [AnimeSearchController::class,'animeSearch']);
 
 require __DIR__.'/auth.php';

@@ -13,4 +13,8 @@ class Anime extends Model
     protected $fillable = [
         'title'
     ];
+
+    public function users(){
+        return $this->belongsToMany(User::class,'anime_user');
+    }
 }
