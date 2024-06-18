@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('anime_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('anime_id');
             $table->timestamps();
 
             // Define foreign key constraints explicitly

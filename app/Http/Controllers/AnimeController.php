@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Anime;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -20,14 +22,22 @@ class AnimeController extends Controller
         return view('singleAnime',['anime'=> $anime]);
     }
 
-    public function addTestAnime()
-    {
-        // Create a new anime record in the anime_list table with title 'test'
-        Anime::create([
-            'title' => 'test', // Set the title to 'test'
-            // Optionally, you can set other fields here such as genre and date
+    function addAnime(Request $request){
+        $validatedData = $request->validate([
+            'value' => 'required|string|max:255', // Validation rules
         ]);
-
+    
+        $animeTitle = $validatedData['value'];
+    
+        // Create a new Anime model instance
+        $anime = Anime::create(['title' => $animeTitle]);
+    
+        // Handle successful insertion (e.g., return JSON response)
+        return response()->json([
+            'success' => true,
+            'message' => 'Anime added successfully!',
+        ]);
     }
+
     
 }

@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/category/{category}',[AnimeSearchController::class,'animeSearch']);
+    Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
+
     // Route::get('/category/{category}', function () {
     //     return view('category');
     // });
