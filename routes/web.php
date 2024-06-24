@@ -46,7 +46,7 @@ Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMov
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
-Route::get('/anime/{id}', [AnimeController::class,'addTestAnime']);
+Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 Route::get('/game/{id}', [GamesController::class,'showSingleGame']);
 // Route::get('/category/{id}', [AnimeSearchController::class,'animeSearch']);

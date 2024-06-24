@@ -17,26 +17,37 @@ class AnimeController extends Controller
         $response = Http::get($url)->json();
         $anime = $response['data'];
 
-        
+            
         // dump($anime);
         return view('singleAnime',['anime'=> $anime]);
     }
 
     function addAnime(Request $request){
+
         $validatedData = $request->validate([
             'value' => 'required|string|max:255', // Validation rules
         ]);
     
         $animeTitle = $validatedData['value'];
-    
+        $user = Auth::user();   
         // Create a new Anime model instance
-        $anime = Anime::create(['title' => $animeTitle]);
-    
-        // Handle successful insertion (e.g., return JSON response)
+        $anime = Anime::firstOrCreate(['title' => $animeTitle]);
+
+
+        if($anime && $user){
+            $user->anime()->attach($anime->id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Anime added successfully!',
+            ]);
+        }
         return response()->json([
-            'success' => true,
-            'message' => 'Anime added successfully!',
-        ]);
+            'success' => false,
+            'message' => 'User or Anime not found!',
+        ], 404);
+
+    
     }
 
     
