@@ -13,13 +13,6 @@
 
 
         <h1 class="text-center mb-16">My {{$category}} library</h1>
-
-        {{-- <div class="list">
-            <div class="flex">
-                @component('components.media-card')
-                @endcomponent
-            </div>
-        </div> --}}
         <form class="text-center" method="GET" action="#">
             <input class="text-[rebeccapurple]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
             <button>search</button>
@@ -33,13 +26,9 @@
 
     <section class="mt-20">
         <ul class="flex flex-wrap items-center justify-start gap-6">
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
-            <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">tesetset</li>
+            @foreach ($anime_data as $anime)
+                <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">{{$anime['title']}}</li>
+            @endforeach
         </ul>
     </section>
 </x-app-layout>

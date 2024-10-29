@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Anime;
 
 class AnimeSearchController extends Controller
 {
@@ -24,7 +25,13 @@ class AnimeSearchController extends Controller
             dump($top_results);
 
         }
-        return view('category',["anime_results"=>$top_results]);
+
+        $getAnime = Anime::all();
+
+        dump($getAnime);
+        
+        return view('category',["anime_results"=>$top_results,"anime_data"=>$getAnime]);
     }
+    
 
 }

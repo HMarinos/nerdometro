@@ -34,10 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/category/{category}',[AnimeSearchController::class,'animeSearch']);
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
-
-    // Route::get('/category/{category}', function () {
-    //     return view('category');
-    // });
 });
 
 
@@ -49,6 +45,5 @@ Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGame
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 Route::get('/game/{id}', [GamesController::class,'showSingleGame']);
-// Route::get('/category/{id}', [AnimeSearchController::class,'animeSearch']);
 
 require __DIR__.'/auth.php';
