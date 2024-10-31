@@ -7,9 +7,10 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\controllers\AnimeController;
 use App\Http\controllers\MovieController;
-use App\Http\controllers\GamesController;
+use App\Http\controllers\GameController;
 use App\Http\controllers\AnimeSearchController;
 use App\Http\controllers\MovieSearchController;
+use App\Http\controllers\GameSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
     Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
+    Route::post('/game-add', [GameController::class, 'addGame'])->name('game.add');
     Route::get('/category/{category}', function($category){
         if($category === 'anime'){
             return app(AnimeSearchController::class)->animeSearch(request());
@@ -57,6 +59,6 @@ Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGame
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
-Route::get('/game/{id}', [GamesController::class,'showSingleGame']);
+Route::get('/game/{id}', [GameController::class,'showSingleGame']);
 
 require __DIR__.'/auth.php';

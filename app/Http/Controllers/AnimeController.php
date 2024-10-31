@@ -46,6 +46,5 @@ class AnimeController extends Controller
             'success' => false,
             'message' => 'User or Anime not found!',
         ], 404);
-
     }
 }
