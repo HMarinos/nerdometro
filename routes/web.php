@@ -9,6 +9,7 @@ use App\Http\controllers\AnimeController;
 use App\Http\controllers\MovieController;
 use App\Http\controllers\GamesController;
 use App\Http\controllers\AnimeSearchController;
+use App\Http\controllers\MovieSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/category/{category}',[AnimeSearchController::class,'animeSearch']);
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
+    Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
+    Route::get('/category/{category}', function($category){
+        if($category === 'anime'){
+            return app(AnimeSearchController::class)->animeSearch(request());
+        }
+        if($category === 'movies'){
+            return app(MovieSearchController::class)->movieSearch(request());
+        }
+        if($category === 'games'){
+            return app(GameSearchController::class)->gameSearch(request());
+        }
+    });
+
 });
 
 

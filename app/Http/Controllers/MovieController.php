@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Movie;
+use Illuminate\Support\Facades\Auth;
+
 
 class MovieController extends Controller
 {
@@ -33,5 +36,31 @@ class MovieController extends Controller
         // dump($firstTrailerObject);
         
         return view('singleMovie',['movie'=>$response,'video'=>$firstTrailerObject]);
+    }
+
+    function addMovie(Request $request){
+
+        $validateData = $request->validate([
+            'value' => 'required|string|max:255',
+        ]);
+
+        $movieTitle = $validateData['value'];
+        $user = Auth::user();
+        //Create a new Movie model instance
+        $movie = Movie::firstOrCreate(['title'=>$movieTitle]);
+
+        if($movie && $user){
+            $user->movie()->attach($movie->id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Movie added successfully!'
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'User or Movie not found!',
+        ], 404);
+        
     }
 }

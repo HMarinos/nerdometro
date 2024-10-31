@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function anime(){
         return $this->belongsToMany(Anime::class,'anime_user');
     }
+
+    public function movie(){
+        return $this->belongsToMany(Movie::class,'movie_user');
+    }
 }
