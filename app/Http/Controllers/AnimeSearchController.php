@@ -22,13 +22,9 @@ class AnimeSearchController extends Controller
             foreach(array_slice($response['data'],0,10) as $result){
                 array_push($top_results,$result['title']);
             }
-            dump($top_results);
-
         }
 
         $getAnime = Anime::all();
-
-        dump($getAnime);
         
         return view('category',["anime_results"=>$top_results,"anime_data"=>$getAnime]);
     }

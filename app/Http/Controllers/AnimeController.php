@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Anime;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Log;
 
 
 class AnimeController extends Controller
@@ -17,16 +16,17 @@ class AnimeController extends Controller
         $response = Http::get($url)->json();
         $anime = $response['data'];
 
-            
-        // dump($anime);
         return view('singleAnime',['anime'=> $anime]);
     }
 
     function addAnime(Request $request){
-
+        
         $validatedData = $request->validate([
             'value' => 'required|string|max:255', // Validation rules
         ]);
+
+        Log::info('Validated Data: ', $validatedData);
+
     
         $animeTitle = $validatedData['value'];
         $user = Auth::user();   

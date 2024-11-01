@@ -25,12 +25,12 @@ class GameSearchController extends Controller
                 array_push($top_results,$result['name']);
             }
             
-            dump($top_results);
+            // dump($top_results);
         }
 
         $getGame = Game::all();
 
-        dump($getGame);
+        // dump($getGame);
 
         return view('category',["game_results"=>$top_results,"game_data"=>$getGame]);
     }

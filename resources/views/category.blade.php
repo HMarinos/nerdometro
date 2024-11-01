@@ -13,6 +13,7 @@
 
 
         <h1 class="text-center mb-16">My {{$category}} library</h1>
+        @csrf
         <form class="text-center" method="GET" action="#">
             <input class="text-[rebeccapurple]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
             <button>search</button>
@@ -81,6 +82,8 @@
             var itemValue = $(this).data('title'); // Use data-title instead of data-value
 
             const xhr = new XMLHttpRequest();
+
+            console.log(xhr);
             xhr.open('POST', '{{ route('anime.add') }}'); // Replace with your actual route
             xhr.setRequestHeader('Content-Type', 'application/json');  // Set header for JSON data
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);  // Include CSRF token
@@ -154,6 +157,9 @@
             var itemValue = $(this).data('title'); // Use data-title instead of data-value
 
             const xhr = new XMLHttpRequest();
+
+            console.log(xhr);
+
             xhr.open('POST', '{{ route('game.add') }}'); // Replace with your actual route
             xhr.setRequestHeader('Content-Type', 'application/json');  // Set header for JSON data
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);  // Include CSRF token
@@ -169,7 +175,7 @@
                         console.error('Error adding item:', response.message);
                     }
                 } else {
-                    console.error('AJAX Error:', xhr.statusText);
+                    console.error('AJAX Error1:', xhr.statusText);
                 }
             };
 
