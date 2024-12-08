@@ -22,16 +22,22 @@ class AnimeController extends Controller
     function addAnime(Request $request){
         
         $validatedData = $request->validate([
-            'value' => 'required|string|max:255', // Validation rules
+            'data_title' => 'required|string|max:255',
+            'data_image' => 'required|string|max:255',
+            'data_id'    => 'required'
         ]);
 
-        Log::info('Validated Data: ', $validatedData);
-
     
-        $animeTitle = $validatedData['value'];
+        $animeTitle = $validatedData['data_title'];
+        $animeImage = $validatedData['data_image'];
+        $animeId = $validatedData['data_id'];
+
         $user = Auth::user();   
-        // Create a new Anime model instance
-        $anime = Anime::firstOrCreate(['title' => $animeTitle]);
+        $anime = Anime::updateOrCreate([
+            'title' => $animeTitle,
+            'image_url' => $animeImage,
+            'db_id' => $animeId
+        ]);
 
 
         if($anime && $user){

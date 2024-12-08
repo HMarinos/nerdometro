@@ -22,7 +22,7 @@
         @if($category == 'anime')
         <ul class="flex flex-col items-center anime-list">
             @foreach ($anime_results as $anime)
-            <li data-title="{{$anime}}" class="anime-item flex items-center gap-4 group cursor-pointer transition-all hover:text-green-200">{{$anime}}<span class="flex justify-center items-center text-green-600 w-6 h-6 border border-green-600 rounded-full group-hover:bg-green-600 group-hover:text-white transition-all font-bold">+</span></li>
+            <li data-title="{{$anime['title']}}" data-image="{{$anime['image_url']}}" key="{{$anime['db_id']}}" class="anime-item flex items-center gap-4 group cursor-pointer transition-all hover:text-green-200">{{$anime['title']}}<span class="flex justify-center items-center text-green-600 w-6 h-6 border border-green-600 rounded-full group-hover:bg-green-600 group-hover:text-white transition-all font-bold">+</span></li>
             @endforeach
         </ul>
         @endif
@@ -45,11 +45,17 @@
 
     </section>
 
-    <section class="mt-20">
+    <section class="mt-20 tabcontent">
         @if(isset($anime_data) && $anime_data)
         <ul class="flex flex-wrap items-center justify-start gap-6">
             @foreach ($anime_data as $anime)
-                <li class="border border-purple-600 aspect-square w-[200px] rounded-xl text-center">{{$anime['title']}}</li>
+                <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                    <img src="{{$anime['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                        <div class="title">
+                            <a href="/anime/{{$anime['db_id']}}">{{$anime['title']}}</a>
+                        </div>
+                        <a href="" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400">x</a>
+                </li>
             @endforeach
         </ul>
         @endif
@@ -79,11 +85,12 @@
 <script>
     $(document).ready(function() {
         $('.anime-item').click(function() {
-            var itemValue = $(this).data('title'); // Use data-title instead of data-value
+            var title = $(this).data('title'); // Use data-title instead of data-value
+            var image = $(this).data('image');
+            var db_id = $(this).attr('key');
 
             const xhr = new XMLHttpRequest();
 
-            console.log(xhr);
             xhr.open('POST', '{{ route('anime.add') }}'); // Replace with your actual route
             xhr.setRequestHeader('Content-Type', 'application/json');  // Set header for JSON data
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);  // Include CSRF token
@@ -107,7 +114,11 @@
                 console.error('AJAX Error:', xhr.statusText);
             };
 
-            xhr.send(JSON.stringify({ value: itemValue }));
+            xhr.send(JSON.stringify({ 
+                data_title: title,
+                data_image: image,
+                data_id: db_id
+             }));
         });
     });
 </script>

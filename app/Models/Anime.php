@@ -11,7 +11,9 @@ class Anime extends Model
     protected $table = 'anime_list';
 
     protected $fillable = [
-        'title'
+        'title',
+        'image_url',
+        'db_id'
     ];
 
     public function users(){
