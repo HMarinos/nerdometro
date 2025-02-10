@@ -49,16 +49,19 @@ Route::middleware('auth')->group(function () {
         }
     });
 
+
+
 });
-
-
 
 Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMovie']);
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
+Route::delete('/anime/{id}', [AnimeController::class, 'deleteAnime'])->name('anime.delete');
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 Route::get('/game/{id}', [GameController::class,'showSingleGame']);
+
+
 
 require __DIR__.'/auth.php';

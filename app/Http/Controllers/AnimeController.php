@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class AnimeController extends Controller
 {
-    function showSingleAnime($id){
+    public function showSingleAnime($id){
         $url = 'https://api.jikan.moe/v4/anime/' . $id . '/full';
         $response = Http::get($url)->json();
         $anime = $response['data'];
@@ -19,7 +19,7 @@ class AnimeController extends Controller
         return view('singleAnime',['anime'=> $anime]);
     }
 
-    function addAnime(Request $request){
+    public function addAnime(Request $request){
         
         $validatedData = $request->validate([
             'data_title' => 'required|string|max:255',
@@ -52,5 +52,15 @@ class AnimeController extends Controller
             'success' => false,
             'message' => 'User or Anime not found!',
         ], 404);
+    }
+    
+    public function deleteAnime($id){
+
+        $anime = Anime::findOrFail($id);
+
+        $anime->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Anime deleted successfully!');
+
     }
 }

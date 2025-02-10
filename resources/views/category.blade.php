@@ -54,7 +54,13 @@
                         <div class="title">
                             <a href="/anime/{{$anime['db_id']}}">{{$anime['title']}}</a>
                         </div>
-                        <a href="" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400">x</a>
+
+                        <form action="{{route('anime.delete',$anime->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400 z-[10]">x</button>
+                        </form>
+                        {{dump($anime->id)}}
                 </li>
             @endforeach
         </ul>
