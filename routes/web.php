@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
         if($category === 'games'){
             return app(GameSearchController::class)->gameSearch(request());
         }
-    });
+    })->name('category.show');
 
 
 
@@ -58,6 +58,8 @@ Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnim
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::delete('/anime/{id}', [AnimeController::class, 'deleteAnime'])->name('anime.delete');
+Route::delete('/movie/{id}', [MovieController::class, 'deleteMovie'])->name('movie.delete');
+Route::delete('/game/{id}', [GameController::class, 'deleteGame'])->name('game.delete');
 Route::get('/anime/{id}', [AnimeController::class,'showSingleAnime']);
 Route::get('/movie/{id}', [MovieController::class,'showSingleMovie']);
 Route::get('/game/{id}', [GameController::class,'showSingleGame']);

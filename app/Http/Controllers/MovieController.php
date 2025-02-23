@@ -41,13 +41,21 @@ class MovieController extends Controller
     function addMovie(Request $request){
 
         $validateData = $request->validate([
-            'value' => 'required|string|max:255',
+            'data_title' => 'required|string|max:255',
+            'data_image' => 'required|string|max:255',
+            'data_id'    => 'required'
         ]);
 
-        $movieTitle = $validateData['value'];
+        $movieTitle = $validateData['data_title'];
+        $movieImage = $validateData['data_image'];
+        $movieId = $validateData['data_id'];
+
         $user = Auth::user();
-        //Create a new Movie model instance
-        $movie = Movie::firstOrCreate(['title'=>$movieTitle]);
+        $movie = Movie::updateOrCreate([
+            'title' => $movieTitle,
+            'image_url' => $movieImage,
+            'db_id' => $movieId
+        ]);
 
         if($movie && $user){
             $user->movie()->attach($movie->id);
@@ -62,5 +70,15 @@ class MovieController extends Controller
             'message' => 'User or Movie not found!',
         ], 404);
         
+    }
+
+    public function deleteMovie($id){
+
+        $movie = Movie::findOrFail($id);
+
+        $movie->delete();
+
+        return redirect()->route('category.show',['category'=>'movies'])->with('success', 'Movie deleted successfully!');
+
     }
 }

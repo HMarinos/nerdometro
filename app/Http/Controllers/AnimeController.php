@@ -60,7 +60,6 @@ class AnimeController extends Controller
 
         $anime->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Anime deleted successfully!');
-
+        return redirect()->route('category.show',['category'=>'anime'])->with('success', 'Anime deleted successfully!');
     }
 }

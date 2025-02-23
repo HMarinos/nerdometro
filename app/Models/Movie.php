@@ -11,7 +11,11 @@ class Movie extends Model
     protected $table = 'movies_list';
 
     protected $fillable = [
-        'title'
+        'title',
+        'genre',
+        'date',
+        'image_url',
+        'db_id'
     ];
 
     public function users(){

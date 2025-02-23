@@ -22,18 +22,22 @@ class GameController extends Controller
     function addGame(Request $request){
 
         $validatedData = $request->validate([
-            'value' => 'required|string|max:255', // Validation rules
+            'data_title' => 'required|string|max:255',
+            'data_image' => 'required|string|max:255',
+            'data_id'    => 'required'
         ]);
 
-        Log::info('Validated Data: ', $validatedData);
-
-
-        $gameTitle = $validatedData['value'];
+        $animeTitle = $validatedData['data_title'];
+        $animeImage = $validatedData['data_image'];
+        $animeId = $validatedData['data_id'];
         
         $user = Auth::user();
 
-        // Create a new Game model instance
-        $game = Game::firstOrCreate(['title' => $gameTitle]);
+        $game = Game::updateOrCreate([
+            'title' => $animeTitle,
+            'image_url' => $animeImage,
+            'db_id' => $animeId
+        ]);
 
         if($game && $user){
             $user->game()->attach($game->id);
@@ -47,6 +51,15 @@ class GameController extends Controller
             'success' => false,
             'message' => 'User or Game not found!',
         ], 404);
+    }
+
+    public function deleteGame($id){
+
+        $game = Game::findOrFail($id);
+
+        $game->delete();
+
+        return redirect()->route('category.show',['category'=>'games'])->with('success', 'Game deleted successfully!');
     }
     
 }

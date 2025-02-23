@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('genre')->default('');
             $table->string('date')->default('');
+            $table->string('image_url')->default('');
+            $table->string('db_id')->unique()->default('');
         });   
     }
 

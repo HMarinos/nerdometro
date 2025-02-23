@@ -20,16 +20,21 @@ class MovieSearchController extends Controller
             $url = 'https://api.themoviedb.org/3/search/movie?api_key=' . $apiKey . '&query=' . $user_input ;
             $response = Http::get($url)->json();
 
+
             foreach(array_slice($response['results'],0,10) as $result){
-                array_push($top_results,$result['title']);
+                array_push($top_results,
+                    [
+                        'title' => $result['title'],
+                        'image_url' => 'https://image.tmdb.org/t/p/w500' . $result['poster_path'],
+                        'db_id' => $result['id']
+                    ]
+                );
             }
 
             dump($top_results);
         }
 
         $getMovie = Movie::all();
-
-        dump($getMovie);
 
         return view('category',["movie_results"=>$top_results,"movie_data"=>$getMovie]);
 

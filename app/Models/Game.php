@@ -11,7 +11,11 @@ class Game extends Model
     protected $table = 'games_list';
 
     protected $fillable = [
-        'title'
+        'title',
+        'genre',
+        'date',
+        'image_url',
+        'db_id'
     ];
 
     public function users(){

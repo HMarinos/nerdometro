@@ -31,11 +31,7 @@ class AnimeSearchController extends Controller
         }
 
         $getAnime = Anime::all();
-
-        // dump($getAnime);
         
         return view('category',["anime_results"=>$top_results,"anime_data"=>$getAnime]);
     }
-    
-
 }
