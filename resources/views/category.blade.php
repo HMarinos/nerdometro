@@ -13,9 +13,9 @@
 
 
         <h1 class="text-center mb-16">My {{$category}} library</h1>
-        <form class="text-center" method="GET" action="#">
-            <input class="text-[rebeccapurple]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
-            <button>search</button>
+        <form class="text-center" method="GET" action="#" id="search-form">
+            <input class="text-[rebeccapurple] shadow-[rebeccapurple] shadow-md bg-white rounded-[100px] h-[45px] pr-[50px]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
+            <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.2)] w-[45px] rounded-full scale-[0.8] group hover:bg-[rebeccapurple] transition-all"><i class="fa-solid fa-magnifying-glass text-[rebeccapurple] group-hover:text-white transition-all"></i></button>
         </form>
         @csrf
 
@@ -47,7 +47,7 @@
 
     <section class="mt-20 tabcontent">
         @if(isset($anime_data) && $anime_data)
-        <ul class="flex flex-wrap items-center justify-start gap-6">
+        <ul class="grid grid-cols-5 gap-6 ">
             @foreach ($anime_data as $anime)
                 <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                     <img src="{{$anime['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
@@ -58,7 +58,7 @@
                     <form action="{{route('anime.delete',$anime->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400 z-[10]">x</button>
+                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                     </form>
                 </li>
             @endforeach
@@ -66,7 +66,7 @@
         @endif
 
         @if(isset($movie_data) && $movie_data)
-        <ul class="flex flex-wrap items-center justify-start gap-6">
+        <ul class="grid grid-cols-5 gap-6 ">
             @foreach ($movie_data as $movie)
                 <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                     <img src="{{$movie['image_url']}}" alt="movie image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
@@ -77,7 +77,7 @@
                     <form action="{{route('movie.delete',$movie->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400 z-[10]">x</button>
+                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                     </form>
                 </li>            
             @endforeach
@@ -85,7 +85,7 @@
         @endif
 
         @if(isset($game_data) && $game_data)
-        <ul class="flex flex-wrap items-center justify-start gap-6">
+        <ul class="grid grid-cols-5 gap-6 ">
             @foreach ($game_data as $game)
                 <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                     <img src="{{$game['image_url']}}" alt="game image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
@@ -96,7 +96,7 @@
                     <form action="{{route('game.delete',$game->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-400 bg-red-400 z-[10]">x</button>
+                        <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                     </form>
                 </li>                
             @endforeach
