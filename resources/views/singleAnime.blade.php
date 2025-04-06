@@ -8,7 +8,21 @@
 
     <section class="single single-anime">
         <div class="info">
-            <h1>{{ $anime['title'] }}</h1>
+            <div class="flex items-center justify-between">
+                <h1>{{ $anime['title'] }}</h1>
+                <div class="actions flex items-center gap-4">
+                    <div title="Add to watchlist"><i class="fa-solid fa-eye text-lg"></i></div>
+                    <form action="{{ route('anime.add') }}" method="POST" class="flex items-center justify-centers m-0">
+                        @csrf
+                        <input type="hidden" name="data_title" value="{{ $anime['title'] }}">
+                        <input type="hidden" name="data_id" value="{{ $anime['mal_id'] }}">
+                        <input type="hidden" name="data_image" value="{{ $anime['images']['jpg']['image_url'] }}">
+                        <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
+                            <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
+                        </button>
+                    </form>                    
+                </div>
+            </div>
             <div class="top-bar">
                 <ul>
                     <li>{{$anime['year']}}</li>

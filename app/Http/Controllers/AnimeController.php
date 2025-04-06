@@ -16,7 +16,18 @@ class AnimeController extends Controller
         $response = Http::get($url)->json();
         $anime = $response['data'];
 
-        return view('singleAnime',['anime'=> $anime]);
+        $user = Auth::user();   
+
+        // dump($anime);
+
+        //check if the anime is already added
+        $anime_id = Anime::where('db_id', $id)->value('id');
+        $already_added = $user->anime()->where('anime_id', $anime_id)->exists();
+
+        return view('singleAnime',[
+            'anime'=> $anime,
+            'exists' => $already_added
+        ]);
     }
 
     public function addAnime(Request $request){
@@ -39,27 +50,38 @@ class AnimeController extends Controller
             'db_id' => $animeId
         ]);
 
-
-        if($anime && $user){
-            $user->anime()->attach($anime->id);
-
+        if (!$anime || !$user) {
             return response()->json([
-                'success' => true,
-                'message' => 'Anime added successfully!',
-            ]);
+                'success' => false,
+                'message' => 'User or Anime not found!',
+            ], 404);
         }
-        return response()->json([
-            'success' => false,
-            'message' => 'User or Anime not found!',
-        ], 404);
+
+        $already_added = $user->anime()->where('anime_id', $anime->id)->exists();
+
+
+        if ($already_added) {
+            $user->anime()->detach($anime->id);
+            $message = 'Anime removed from your list.';
+        } else {
+            $user->anime()->attach($anime->id);
+            $message = 'Anime added to your list.';
+        }
+    
+        session()->flash('status', $message);
+
+        // Return a redirect back to the current page (refresh)
+        return back();
+    
+    
     }
     
-    public function deleteAnime($id){
+    // public function deleteAnime($id){
 
-        $anime = Anime::findOrFail($id);
+    //     $anime = Anime::findOrFail($id);
 
-        $anime->delete();
+    //     $anime->delete();
 
-        return redirect()->route('category.show',['category'=>'anime'])->with('success', 'Anime deleted successfully!');
-    }
+    //     return redirect()->route('category.show',['category'=>'anime'])->with('success', 'Anime deleted successfully!');
+    // }
 }

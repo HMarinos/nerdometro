@@ -9,29 +9,27 @@ use App\Models\Anime;
 class AnimeSearchController extends Controller
 {
     //
-    function animeSearch(){
-
-        $user_input = request('search');
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Capture search input
         $top_results = [];
 
-
-        if($user_input){
-            $url = 'https://api.jikan.moe/v4/anime?q='. $user_input ;
+        if ($query) {
+            $url = 'https://api.jikan.moe/v4/anime?q=' . $query;
             $response = Http::get($url)->json();
 
-            // dump($response);
-            
-            foreach(array_slice($response['data'],0,10) as $result){
-                array_push($top_results, [
-                    'title' => $result['title'],
-                    'image_url' => $result['images']['webp']['image_url'],
-                    'db_id' => $result['mal_id']
-                ]);
+            if (isset($response['data'])) {
+                foreach (array_slice($response['data'], 0, 10) as $result) {
+                    $top_results[] = [
+                        'title' => $result['title'],
+                        'image_url' => $result['images']['webp']['image_url'],
+                        'db_id' => $result['mal_id']
+                    ];
+                }
             }
         }
 
-        $getAnime = Anime::all();
-        
-        return view('category',["anime_results"=>$top_results,"anime_data"=>$getAnime]);
+        return response()->json($top_results);
     }
+
 }

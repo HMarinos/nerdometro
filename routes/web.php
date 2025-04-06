@@ -37,19 +37,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
     Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
     Route::post('/game-add', [GameController::class, 'addGame'])->name('game.add');
+
     Route::get('/category/{category}', function($category){
-        if($category === 'anime'){
-            return app(AnimeSearchController::class)->animeSearch(request());
-        }
-        if($category === 'movies'){
-            return app(MovieSearchController::class)->movieSearch(request());
-        }
-        if($category === 'games'){
-            return app(GameSearchController::class)->gameSearch(request());
-        }
+        return view('category',['category'=>$category]);
     })->name('category.show');
 
 
+    Route::get('/search/anime', [AnimeSearchController::class, 'search'])->name('search.anime');
+    Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movies');
+    Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
 
 });
 
