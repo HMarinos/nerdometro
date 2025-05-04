@@ -23,10 +23,12 @@ class AnimeController extends Controller
         //check if the anime is already added
         $anime_id = Anime::where('db_id', $id)->value('id');
         $already_added = $user->anime()->where('anime_id', $anime_id)->exists();
+        $in_wishlist = $user->wishlist()->where('anime_id', $anime_id)->exists();
 
         return view('singleAnime',[
             'anime'=> $anime,
-            'exists' => $already_added
+            'exists' => $already_added,
+            'in_wishlist' => $in_wishlist
         ]);
     }
 
@@ -72,16 +74,77 @@ class AnimeController extends Controller
 
         // Return a redirect back to the current page (refresh)
         return back();
+
+    }
+
+    public function addAnimeWishlist(Request $request){
+        $validatedData = $request->validate([
+            'data_title' => 'required|string|max:255',
+            'data_image' => 'required|string|max:255',
+            'data_id'    => 'required'
+        ]);
     
+        $animeTitle = $validatedData['data_title'];
+        $animeImage = $validatedData['data_image'];
+        $animeDbId  = $validatedData['data_id'];
     
+        $user = Auth::user();
+    
+        $anime = Anime::updateOrCreate([
+            'db_id' => $animeDbId,
+        ], [
+            'title' => $animeTitle,
+            'image_url' => $animeImage,
+        ]);
+    
+        if (!$anime || !$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User or Anime not found!',
+            ], 404);
+        }
+    
+        $alreadyWishlisted = $user->wishlist()->where('anime_id', $anime->id)->exists();
+    
+        if ($alreadyWishlisted) {
+            $user->wishlist()->detach($anime->id);
+            $message = 'Anime removed from your wishlist.';
+        } else {
+            $user->wishlist()->attach($anime->id);
+            $message = 'Anime added to your wishlist.';
+        }
+    
+        session()->flash('status', $message);
+    
+        return back();
+    }
+
+    public function showList() {
+
+        $watched_anime = Anime::whereHas('users', function($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+        $wishlisted = Anime::whereHas('wishlist', function($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+        dump($wishlisted);
+
+        return view('myAnimeList',[
+            'watched' => $watched_anime,
+            'wishlisted' => $wishlisted
+        ]);
     }
     
-    // public function deleteAnime($id){
+    
+    public function deleteAnime($id){
 
-    //     $anime = Anime::findOrFail($id);
+        $anime = Anime::findOrFail($id);
+        $user = auth()->user(); 
 
-    //     $anime->delete();
+        $user->anime()->detach($anime->id);
 
-    //     return redirect()->route('category.show',['category'=>'anime'])->with('success', 'Anime deleted successfully!');
-    // }
+        return redirect()->route('anime.list')->with('success', 'Anime deleted successfully!');
+    }
 }

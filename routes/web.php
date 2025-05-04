@@ -35,12 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
+    Route::post('/anime-add-wishlist', [AnimeController::class, 'addAnimeWishlist'])->name('anime.add.wishlist');
     Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
     Route::post('/game-add', [GameController::class, 'addGame'])->name('game.add');
 
-    Route::get('/category/{category}', function($category){
-        return view('category',['category'=>$category]);
-    })->name('category.show');
+    // Route::get('/category/{category}', function($category){
+    //     return view('category',['category'=>$category]);
+    // })->name('category.show');
+
+    Route::get('/category/anime', [AnimeController::class, 'showList'])->name('anime.list');
 
 
     Route::get('/search/anime', [AnimeSearchController::class, 'search'])->name('search.anime');

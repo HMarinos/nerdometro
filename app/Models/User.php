@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Anime::class,'anime_user');
     }
 
+    public function wishlist(){
+        return $this->belongsToMany(Anime::class,'anime_user_wishlist');
+    }
+
     public function movie(){
         return $this->belongsToMany(Movie::class,'movie_user');
     }
