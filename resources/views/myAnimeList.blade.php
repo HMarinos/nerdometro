@@ -72,43 +72,52 @@
 
 <script>
     $(document).ready(function () {
+        let debounceTimer;
+
         $('#search-input').on('keyup', function () {
+            clearTimeout(debounceTimer); // clear previous timer
+
             let query = $(this).val();
 
-            if (query.length < 3) {
-                $('#results').html('');
-                return;
-            }
-
-            let searchUrl = `/search/anime?query=${query}`;
-
-            $.ajax({
-                url: searchUrl,
-                type: "GET",
-                success: function (data) {
-                    let results = '';
-                    if (data.length > 0) {
-                        data.forEach(item => {
-                            console.log(item);
-                            results += `
-                                <a href="/anime/${item.db_id}" style="display:flex; align-items:center; gap:10px;">
-                                    <img src="${item.image_url}" alt="${item.title}" width="60">
-                                    <p>${item.title}</p>
-                                </a>
-                            `;
-                        });
-                    } else {
-                        results = '<p>No results found</p>';
-                    }
-                    $('#results').html(results);
-                },
-                error: function () {
-                    $('#results').html('<p>Error fetching data</p>');
+            debounceTimer = setTimeout(() => {
+                if (query.length < 3) {
+                    $('#results').html('');
+                    return;
                 }
-            });
+
+                console.log("Searching for:", query); // see what it's searching
+
+                let searchUrl = `/search/anime?query=${query}`;
+
+                $.ajax({
+                    url: searchUrl,
+                    type: "GET",
+                    success: function (data) {
+                        let results = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                results += `
+                                    <a href="/anime/${item.db_id}" style="display:flex; align-items:center; gap:10px;">
+                                        <img src="${item.image_url}" alt="${item.title}" width="60">
+                                        <p>${item.title}</p>
+                                    </a>
+                                `;
+                            });
+                        } else {
+                            results = '<p>No results found</p>';
+                        }
+                        $('#results').html(results);
+                    },
+                    error: function () {
+                        $('#results').html('<p>Error fetching data</p>');
+                    }
+                });
+
+            }, 300); // delay in milliseconds (adjust as needed)
         });
     });
 </script>
+
 
 
 
