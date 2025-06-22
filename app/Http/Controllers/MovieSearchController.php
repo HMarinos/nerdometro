@@ -31,7 +31,6 @@ class MovieSearchController extends Controller
                 );
             }
 
-            dump($top_results);
         }
 
         $getMovie = Movie::all();

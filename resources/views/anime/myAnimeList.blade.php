@@ -8,15 +8,14 @@
 
     <section>
         <h1 class="text-center mb-16">My Anime List</h1>
-        <form class="text-center" method="GET" action="#" id="search-form">
-            <input id="search-input" class="text-[rebeccapurple] shadow-[rebeccapurple] shadow-md bg-white rounded-[100px] h-[45px] pr-[50px]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
+        <form class="text-center" method="GET" action="#" id="anime-search-form">
+            <input id="anime-search-input" class="text-[rebeccapurple] shadow-[rebeccapurple] shadow-md bg-white rounded-[100px] h-[45px] pr-[50px]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
             <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.2)] w-[45px] rounded-full scale-[0.8] group hover:bg-[rebeccapurple] transition-all"><i class="fa-solid fa-magnifying-glass text-[rebeccapurple] group-hover:text-white transition-all"></i></button>
         </form>
         @csrf
 
         <div id="results" class="max-w-[400px] mx-auto flex flex-col gap-2 max-h-[350px] overflow-auto">
         </div>
-
     </section>
 
     <section class="mt-20 tabcontent">
@@ -56,7 +55,7 @@
                         <a href="/anime/{{$item['db_id']}}">{{$item['title']}}</a>
                     </div>
 
-                    <form action="{{route('anime.delete',$item->id)}}" method="POST">
+                    <form action="{{route('anime.remove.wishlist',$item->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
@@ -74,7 +73,7 @@
     $(document).ready(function () {
         let debounceTimer;
 
-        $('#search-input').on('keyup', function () {
+        $('#anime-search-input').on('keyup', function () {
             clearTimeout(debounceTimer); // clear previous timer
 
             let query = $(this).val();
@@ -84,8 +83,6 @@
                     $('#results').html('');
                     return;
                 }
-
-                console.log("Searching for:", query); // see what it's searching
 
                 let searchUrl = `/search/anime?query=${query}`;
 
@@ -97,15 +94,25 @@
                         if (data.length > 0) {
                             data.forEach(item => {
                                 results += `
-                                    <a href="/anime/${item.db_id}" style="display:flex; align-items:center; gap:10px;">
+                                    <a href="/anime/${item.db_id}" style="display:flex; align-items:center; gap:10px; padding:5px 0;">
                                         <img src="${item.image_url}" alt="${item.title}" width="60">
                                         <p>${item.title}</p>
                                     </a>
                                 `;
                             });
+
+                            // Add "View All Results" button
+                            results += `
+                                <div style="margin-top:10px;">
+                                    <a href="/search/anime/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:#007bff; color:white; border-radius:4px; text-decoration:none;">
+                                        View All Results
+                                    </a>
+                                </div>
+                            `;
                         } else {
                             results = '<p>No results found</p>';
                         }
+
                         $('#results').html(results);
                     },
                     error: function () {
@@ -113,7 +120,7 @@
                     }
                 });
 
-            }, 300); // delay in milliseconds (adjust as needed)
+            }, 300);
         });
     });
 </script>

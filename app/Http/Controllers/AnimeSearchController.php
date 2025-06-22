@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Anime;
+use Illuminate\Support\Facades\Auth;
 
 class AnimeSearchController extends Controller
 {
@@ -30,6 +31,55 @@ class AnimeSearchController extends Controller
         }
 
         return response()->json($top_results);
+    }
+
+    public function searchAll(Request $request)
+    {
+        $query = $request->input('query');
+        $page = $request->input('page', 1);
+        $limit = 20;
+    
+        $results = [];
+        $pagination = null;
+    
+        if ($query) {
+            $url = 'https://api.jikan.moe/v4/anime?q=' . urlencode($query) . "&page={$page}&limit={$limit}";
+            $response = Http::get($url)->json();
+    
+            if (isset($response['data'])) {
+                foreach ($response['data'] as $result) {
+                    $results[] = [
+                        'title' => $result['title'],
+                        'mal_id' => $result['mal_id'],  // note this key name
+                        'image_url' => $result['images']['jpg']['image_url'],  // jpg version
+                    ];
+                }
+    
+                if (isset($response['pagination'])) {
+                    $pagination = $response['pagination'];
+                }
+            }
+        }
+
+        $userWishlistDbIds = [];
+        if ($user = Auth::user()) {
+            $userWishlistDbIds = \DB::table('anime_user_wishlist')
+            ->where('anime_user_wishlist.user_id', $user->id)
+            ->join('anime_list', 'anime_list.id', '=', 'anime_user_wishlist.anime_id')
+            ->pluck('anime_list.db_id')
+            ->toArray();
+        }
+
+        dump($userWishlistDbIds);
+        
+
+        return view('anime/searchAllAnime', [
+            'results' => $results,
+            'query' => $query,
+            'pagination' => $pagination,
+            'userWishlistIds' => $userWishlistDbIds,
+
+        ]);
     }
 
 }

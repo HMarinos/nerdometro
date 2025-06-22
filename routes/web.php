@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/anime-add', [AnimeController::class, 'addAnime'])->name('anime.add');
     Route::post('/anime-add-wishlist', [AnimeController::class, 'addAnimeWishlist'])->name('anime.add.wishlist');
+    Route::delete('/anime-remove-wishlist/{id}', [AnimeController::class, 'removeAnimeWishlist'])->name('anime.remove.wishlist');
     Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
     Route::post('/game-add', [GameController::class, 'addGame'])->name('game.add');
 
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/search/anime', [AnimeSearchController::class, 'search'])->name('search.anime');
+    Route::get('search/anime/all', [AnimeSearchController::class, 'searchAll'])->name('search.anime.all');
     Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movies');
     Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
 

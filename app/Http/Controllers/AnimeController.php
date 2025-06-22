@@ -25,7 +25,7 @@ class AnimeController extends Controller
         $already_added = $user->anime()->where('anime_id', $anime_id)->exists();
         $in_wishlist = $user->wishlist()->where('anime_id', $anime_id)->exists();
 
-        return view('singleAnime',[
+        return view('/anime/singleAnime',[
             'anime'=> $anime,
             'exists' => $already_added,
             'in_wishlist' => $in_wishlist
@@ -78,6 +78,7 @@ class AnimeController extends Controller
     }
 
     public function addAnimeWishlist(Request $request){
+
         $validatedData = $request->validate([
             'data_title' => 'required|string|max:255',
             'data_image' => 'required|string|max:255',
@@ -119,6 +120,20 @@ class AnimeController extends Controller
         return back();
     }
 
+    public function removeAnimeWishlist($id) {
+        $user = Auth::user();
+        $anime = Anime::findOrFail($id);
+
+        if ($user->wishlist()->where('anime_id', $anime->id)->exists()) {
+            $user->wishlist()->detach($anime->id);
+            session()->flash('status', 'Anime removed from your wishlist.');
+        } else {
+            session()->flash('status', 'Anime not found in your wishlist.');
+        }
+
+        return back();
+    }
+
     public function showList() {
 
         $watched_anime = Anime::whereHas('users', function($query) {
@@ -129,9 +144,8 @@ class AnimeController extends Controller
             $query->where('user_id', Auth::id());
         })->get();
 
-        dump($wishlisted);
 
-        return view('myAnimeList',[
+        return view('anime/myAnimeList',[
             'watched' => $watched_anime,
             'wishlisted' => $wishlisted
         ]);
