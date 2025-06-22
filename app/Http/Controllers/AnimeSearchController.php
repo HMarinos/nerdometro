@@ -61,6 +61,16 @@ class AnimeSearchController extends Controller
             }
         }
 
+        $userWatchedDbIds = [];
+
+        if ($user = Auth::user()) {
+            $userWatchedDbIds = \DB::table('anime_user')  // your pivot for watched anime
+                ->where('anime_user.user_id', $user->id)
+                ->join('anime_list', 'anime_list.id', '=', 'anime_user.anime_id')
+                ->pluck('anime_list.db_id')
+                ->toArray();
+        }
+
         $userWishlistDbIds = [];
         if ($user = Auth::user()) {
             $userWishlistDbIds = \DB::table('anime_user_wishlist')
@@ -68,17 +78,14 @@ class AnimeSearchController extends Controller
             ->join('anime_list', 'anime_list.id', '=', 'anime_user_wishlist.anime_id')
             ->pluck('anime_list.db_id')
             ->toArray();
-        }
-
-        dump($userWishlistDbIds);
-        
+        }        
 
         return view('anime/searchAllAnime', [
             'results' => $results,
             'query' => $query,
             'pagination' => $pagination,
             'userWishlistIds' => $userWishlistDbIds,
-
+            'userWatchedDbIds' => $userWatchedDbIds,   // new
         ]);
     }
 

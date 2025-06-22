@@ -33,16 +33,29 @@
 
                     @php
                         $in_wishlist = in_array($item['mal_id'], $userWishlistIds ?? []);
-                        dump($item['mal_id']);
                     @endphp
                     
-                    <form action="{{ route('anime.add.wishlist') }}" method="POST" class="flex items-center m-0">
+                    <form action="{{ route('anime.add.wishlist') }}" method="POST" class="flex items-center absolute top-[10px] left-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
                         @csrf
                         <input type="hidden" name="data_title" value="{{ $item['title'] }}">
                         <input type="hidden" name="data_id" value="{{ $item['mal_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $item['image_url'] }}">
                         <button type="submit" title="{{ $in_wishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}" class="focus:outline-none">
                             <i class="fa-solid fa-eye text-lg" style="color: {{ $in_wishlist ? 'orange' : 'inherit' }}"></i>
+                        </button>
+                    </form>
+
+                    @php
+                        $exists = in_array($item['mal_id'], $userWatchedDbIds ?? []);
+                    @endphp
+                    
+                    <form action="{{ route('anime.add') }}" method="POST" class="flex items-center m-0 absolute top-[10px] right-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
+                        @csrf
+                        <input type="hidden" name="data_title" value="{{ $item['title'] }}">
+                        <input type="hidden" name="data_id" value="{{ $item['mal_id'] }}">
+                        <input type="hidden" name="data_image" value="{{ $item['image_url'] }}">
+                        <button type="submit" title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
+                            <i class="fa-solid fa-circle-check text-lg" style="color:{{ $exists ? 'green' : '' }}"></i>
                         </button>
                     </form>
 
