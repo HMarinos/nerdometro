@@ -47,14 +47,22 @@ class User extends Authenticatable
         return $this->belongsToMany(Anime::class,'anime_user');
     }
 
-    public function wishlist(){
-        return $this->belongsToMany(Anime::class,'anime_user_wishlist');
+    public function animeWishlist(){
+        return $this->belongsToMany(Anime::class, 'anime_user_wishlist');
+    }
+
+    public function movieWishlist(){
+        return $this->belongsToMany(Movie::class, 'movie_user_wishlist');
+    }
+
+    public function gameWishlist(){
+        return $this->belongsToMany(Game::class,'game_user_wishlist');
     }
 
     public function movie(){
         return $this->belongsToMany(Movie::class,'movie_user');
     }
-
+    
     public function game(){
         return $this->belongsToMany(Game::class,'game_user');
     }

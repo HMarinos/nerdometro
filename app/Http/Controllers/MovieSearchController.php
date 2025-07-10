@@ -9,33 +9,30 @@ use App\Models\Movie;
 class MovieSearchController extends Controller
 {
     //
-    function movieSearch(){
-
-        $apiKey = '05abd598284193009c38291a6823dd0c';
-
-        $user_input = request('search');
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Consistent with anime method
         $top_results = [];
 
-        if($user_input){
-            $url = 'https://api.themoviedb.org/3/search/movie?api_key=' . $apiKey . '&query=' . $user_input ;
+        if ($query) {
+            $apiKey = '05abd598284193009c38291a6823dd0c';
+            $url = 'https://api.themoviedb.org/3/search/movie?api_key=' . $apiKey . '&query=' . urlencode($query);
             $response = Http::get($url)->json();
 
-
-            foreach(array_slice($response['results'],0,10) as $result){
-                array_push($top_results,
-                    [
-                        'title' => $result['title'],
-                        'image_url' => 'https://image.tmdb.org/t/p/w500' . $result['poster_path'],
-                        'db_id' => $result['id']
-                    ]
-                );
+            if (isset($response['results'])) {
+                foreach (array_slice($response['results'], 0, 10) as $result) {
+                    $top_results[] = [
+                        'title' => $result['title'] ?? 'No Title',
+                        'image_url' => isset($result['poster_path']) 
+                            ? 'https://image.tmdb.org/t/p/w500' . $result['poster_path'] 
+                            : null,
+                        'db_id' => $result['id'] ?? null
+                    ];
+                }
             }
-
         }
 
-        $getMovie = Movie::all();
-
-        return view('category',["movie_results"=>$top_results,"movie_data"=>$getMovie]);
-
+        return response()->json($top_results);
     }
+
 }

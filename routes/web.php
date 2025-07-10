@@ -38,17 +38,28 @@ Route::middleware('auth')->group(function () {
     Route::post('/anime-add-wishlist', [AnimeController::class, 'addAnimeWishlist'])->name('anime.add.wishlist');
     Route::delete('/anime-remove-wishlist/{id}', [AnimeController::class, 'removeAnimeWishlist'])->name('anime.remove.wishlist');
     Route::post('/movie-add', [MovieController::class, 'addMovie'])->name('movie.add');
+    Route::post('/movie-add-wishlist', [MovieController::class, 'addMovieWishlist'])->name('movie.add.wishlist');
+    Route::delete('/movie-remove-wishlist/{id}', [MovieController::class, 'removeMovieWishlist'])->name('movie.remove.wishlist');
     Route::post('/game-add', [GameController::class, 'addGame'])->name('game.add');
+    Route::post('/game-add-wishlist', [GameController::class, 'addGameWishlist'])->name('game.add.wishlist');
+    Route::delete('/game-remove-wishlist/{id}', [GameController::class, 'removeGameWishlist'])->name('game.remove.wishlist');
+
 
     // Route::get('/category/{category}', function($category){
     //     return view('category',['category'=>$category]);
     // })->name('category.show');
 
     Route::get('/category/anime', [AnimeController::class, 'showList'])->name('anime.list');
-
+    Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
+    Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
+    
 
     Route::get('/search/anime', [AnimeSearchController::class, 'search'])->name('search.anime');
     Route::get('search/anime/all', [AnimeSearchController::class, 'searchAll'])->name('search.anime.all');
+
+    Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movie');
+    Route::get('search/movies/all', [MovieSearchController::class, 'searchAll'])->name('search.movie.all');
+    
     Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movies');
     Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
 
@@ -56,7 +67,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/fetch-and-store-movies', [MediaController::class, 'fetchAndStoreMovie']);
 Route::get('/fetch-and-store-anime', [MediaController::class, 'fetchAndStoreAnime']);
-Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::get('/fetch-and-store-games', [MediaController::class, 'fetchAndStoreGames']);
 Route::delete('/anime/{id}', [AnimeController::class, 'deleteAnime'])->name('anime.delete');
 Route::delete('/movie/{id}', [MovieController::class, 'deleteMovie'])->name('movie.delete');

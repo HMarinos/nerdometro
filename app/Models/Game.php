@@ -21,4 +21,8 @@ class Game extends Model
     public function users(){
         return $this->belongsToMany(User::class,'game_user');
     }
+
+    public function wishlist(){
+        return $this->belongsToMany(User::class,'game_user_wishlist');
+    }
 }

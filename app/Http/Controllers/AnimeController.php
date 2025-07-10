@@ -23,7 +23,7 @@ class AnimeController extends Controller
         //check if the anime is already added
         $anime_id = Anime::where('db_id', $id)->value('id');
         $already_added = $user->anime()->where('anime_id', $anime_id)->exists();
-        $in_wishlist = $user->wishlist()->where('anime_id', $anime_id)->exists();
+        $in_wishlist = $user->animeWishlist()->where('anime_id', $anime_id)->exists();
 
         return view('/anime/singleAnime',[
             'anime'=> $anime,
@@ -105,13 +105,13 @@ class AnimeController extends Controller
             ], 404);
         }
     
-        $alreadyWishlisted = $user->wishlist()->where('anime_id', $anime->id)->exists();
+        $alreadyWishlisted = $user->animeWishlist()->where('anime_id', $anime->id)->exists();
     
         if ($alreadyWishlisted) {
-            $user->wishlist()->detach($anime->id);
+            $user->animeWishlist()->detach($anime->id);
             $message = 'Anime removed from your wishlist.';
         } else {
-            $user->wishlist()->attach($anime->id);
+            $user->animeWishlist()->attach($anime->id);
             $message = 'Anime added to your wishlist.';
         }
     
@@ -124,8 +124,8 @@ class AnimeController extends Controller
         $user = Auth::user();
         $anime = Anime::findOrFail($id);
 
-        if ($user->wishlist()->where('anime_id', $anime->id)->exists()) {
-            $user->wishlist()->detach($anime->id);
+        if ($user->animeWishlist()->where('anime_id', $anime->id)->exists()) {
+            $user->animeWishlist()->detach($anime->id);
             session()->flash('status', 'Anime removed from your wishlist.');
         } else {
             session()->flash('status', 'Anime not found in your wishlist.');
