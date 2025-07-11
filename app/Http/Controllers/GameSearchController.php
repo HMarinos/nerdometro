@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Game;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class GameSearchController extends Controller
 {
@@ -37,55 +40,70 @@ class GameSearchController extends Controller
     {
         $query = $request->input('query');
         $page = $request->input('page', 1);
-        $page_size = 20;
+        $limit = 20;
 
         $results = [];
         $pagination = null;
 
         if ($query) {
-            $api_key = '925517f17a024b508da64ad9f4d7e388';
-            $url = "https://api.rawg.io/api/games?key={$api_key}&search=" . urlencode($query) . "&page={$page}&page_size={$page_size}";
+            $apiKey = '925517f17a024b508da64ad9f4d7e388';
+            $url = "https://api.rawg.io/api/games?key={$apiKey}&search=" . urlencode($query) . "&page={$page}&page_size={$limit}";
             $response = Http::get($url)->json();
 
             if (isset($response['results'])) {
-                foreach ($response['results'] as $result) {
+                foreach ($response['results'] as $game) {
                     $results[] = [
-                        'title' => $result['name'] ?? 'No Title',
-                        'db_id' => $result['id'] ?? null,
-                        'image_url' => $result['background_image'] ?? null,
+                        'title' => $game['name'],
+                        'db_id' => $game['id'],
+                        'image_url' => $game['background_image'] ?? null,
                     ];
                 }
 
-                // RAWG gives next/previous, not traditional pagination
                 if (isset($response['count'])) {
+                    $totalResults = $response['count'];
+                    $lastPage = (int) ceil($totalResults / $limit);
+
                     $pagination = [
-                        'total' => $response['count'],
-                        'page' => $page,
-                        'per_page' => $page_size,
-                        'has_next' => isset($response['next']),
-                        'has_prev' => isset($response['previous']),
+                        'total' => $totalResults,
+                        'page' => (int) $page,
+                        'current_page' => (int) $page,
+                        'last_visible_page' => $lastPage,
+                        'has_next_page' => isset($response['next']),
+                        'has_prev_page' => isset($response['previous']),
                     ];
                 }
             }
         }
 
-        // Eloquent-based approach to get watched and wishlist IDs
-        $userWatchedDbIds = [];
-        $userWishlistDbIds = [];
+        $user = Auth::user();
 
-        if ($user = auth()->user()) {
-            $userWatchedDbIds = $user->watchedGames()->pluck('db_id')->toArray();
-            $userWishlistDbIds = $user->wishlistGames()->pluck('db_id')->toArray();
+        $userPlayedDbIds = [];
+        if ($user) {
+            $userPlayedDbIds = \DB::table('game_user')
+                ->where('game_user.user_id', $user->id)
+                ->join('games_list', 'games_list.id', '=', 'game_user.game_id')
+                ->pluck('games_list.db_id')
+                ->toArray();
         }
 
-        return view('games.searchAllGames', [
+        $userWishlistDbIds = [];
+        if ($user) {
+            $userWishlistDbIds = \DB::table('game_user_wishlist')
+                ->where('game_user_wishlist.user_id', $user->id)
+                ->join('games_list', 'games_list.id', '=', 'game_user_wishlist.game_id')
+                ->pluck('games_list.db_id')
+                ->toArray();
+        }
+
+        return view('games/searchAllGames', [
             'results' => $results,
             'query' => $query,
             'pagination' => $pagination,
-            'userWatchedDbIds' => $userWatchedDbIds,
-            'userWishlistDbIds' => $userWishlistDbIds,
+            'userWishlistIds' => $userWishlistDbIds,
+            'userPlayedDbIds' => $userPlayedDbIds,
         ]);
     }
+
 
 
 }

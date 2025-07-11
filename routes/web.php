@@ -60,8 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movie');
     Route::get('search/movies/all', [MovieSearchController::class, 'searchAll'])->name('search.movie.all');
     
-    Route::get('/search/movies', [MovieSearchController::class, 'search'])->name('search.movies');
     Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
+    Route::get('/search/games/all', [GameSearchController::class, 'searchAll'])->name('search.games.all');
 
 });
 

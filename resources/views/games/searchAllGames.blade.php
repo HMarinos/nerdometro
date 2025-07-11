@@ -28,16 +28,16 @@
                 <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                     <img src="{{$item['image_url'] ?? $item['cover']}}" alt="game image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
                     <div class="title decoration-[rebeccapurple] group-hover:underline">
-                        <a href="/game/{{$item['id']}}">{{$item['title'] ?? $item['name']}}</a>
+                        <a href="/game/{{$item['db_id']}}">{{$item['title'] ?? $item['name']}}</a>
                     </div>
 
                     @php
-                        $in_wishlist = in_array($item['id'], $userWishlistIds ?? []);
+                        $in_wishlist = in_array($item['db_id'], $userWishlistIds ?? []);
                     @endphp
                     <form action="{{ route('game.add.wishlist') }}" method="POST" class="flex items-center absolute top-[10px] left-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
                         @csrf
                         <input type="hidden" name="data_title" value="{{ $item['title'] ?? $item['name'] }}">
-                        <input type="hidden" name="data_id" value="{{ $item['id'] }}">
+                        <input type="hidden" name="data_id" value="{{ $item['db_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $item['image_url'] ?? $item['cover'] }}">
                         <button type="submit" title="{{ $in_wishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}" class="focus:outline-none">
                             <i class="fa-solid fa-eye text-lg" style="color: {{ $in_wishlist ? 'orange' : 'inherit' }}"></i>
@@ -45,12 +45,12 @@
                     </form>
 
                     @php
-                        $exists = in_array($item['id'], $userPlayedDbIds ?? []);
+                        $exists = in_array($item['db_id'], $userPlayedDbIds ?? []);
                     @endphp
                     <form action="{{ route('game.add') }}" method="POST" class="flex items-center m-0 absolute top-[10px] right-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
                         @csrf
                         <input type="hidden" name="data_title" value="{{ $item['title'] ?? $item['name'] }}">
-                        <input type="hidden" name="data_id" value="{{ $item['id'] }}">
+                        <input type="hidden" name="data_id" value="{{ $item['db_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $item['image_url'] ?? $item['cover'] }}">
                         <button type="submit" title="{{ $exists ? 'Remove from Played' : 'Add to Played' }}">
                             <i class="fa-solid fa-circle-check text-lg" style="color:{{ $exists ? 'green' : '' }}"></i>
