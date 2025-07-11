@@ -32,25 +32,41 @@ class AnimeController extends Controller
         ]);
     }
 
-    public function addAnime(Request $request){
-        
+    public function addAnime(Request $request)
+    {
         $validatedData = $request->validate([
-            'data_title' => 'required|string|max:255',
-            'data_image' => 'required|string|max:255',
-            'data_id'    => 'required'
+            'data_title'  => 'required|string|max:255',
+            'data_image'  => 'required|string|max:255',
+            'data_id'     => 'required',
+            'data_genres' => 'nullable|string', // JSON string
         ]);
 
-    
         $animeTitle = $validatedData['data_title'];
         $animeImage = $validatedData['data_image'];
-        $animeId = $validatedData['data_id'];
+        $animeId    = $validatedData['data_id'];
 
-        $user = Auth::user();   
-        $anime = Anime::updateOrCreate([
-            'title' => $animeTitle,
-            'image_url' => $animeImage,
-            'db_id' => $animeId
-        ]);
+        // Extract only genre names
+        $rawGenres = json_decode($validatedData['data_genres'] ?? '[]', true);
+
+        $genreNames = collect($rawGenres)
+            ->pluck('name')
+            ->filter()       // remove nulls or empty
+            ->unique()
+            ->values()
+            ->all();         // final array of genre names
+
+        $genresJson = json_encode($genreNames); // Store as clean JSON
+
+        $user = Auth::user();
+
+        $anime = Anime::updateOrCreate(
+            ['db_id' => $animeId],
+            [
+                'title'     => $animeTitle,
+                'image_url' => $animeImage,
+                'genres'    => $genresJson, // Stored as ["Action", "Comedy"]
+            ]
+        );
 
         if (!$anime || !$user) {
             return response()->json([
@@ -59,23 +75,20 @@ class AnimeController extends Controller
             ], 404);
         }
 
-        $already_added = $user->anime()->where('anime_id', $anime->id)->exists();
+        $alreadyAdded = $user->anime()->where('anime_id', $anime->id)->exists();
 
-
-        if ($already_added) {
+        if ($alreadyAdded) {
             $user->anime()->detach($anime->id);
             $message = 'Anime removed from your list.';
         } else {
             $user->anime()->attach($anime->id);
             $message = 'Anime added to your list.';
         }
-    
+
         session()->flash('status', $message);
-
-        // Return a redirect back to the current page (refresh)
         return back();
-
     }
+
 
     public function addAnimeWishlist(Request $request){
 
@@ -150,7 +163,6 @@ class AnimeController extends Controller
             'wishlisted' => $wishlisted
         ]);
     }
-    
     
     public function deleteAnime($id){
 

@@ -28,6 +28,7 @@
                         <input type="hidden" name="data_title" value="{{ $anime['title'] }}">
                         <input type="hidden" name="data_id" value="{{ $anime['mal_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $anime['images']['jpg']['image_url'] }}">
+                        <input type="hidden" name="data_genres" value='@json($anime["genres"])'>
                         <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
                             <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
                         </button>
