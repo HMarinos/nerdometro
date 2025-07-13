@@ -38,7 +38,7 @@ class AnimeController extends Controller
             'data_title'  => 'required|string|max:255',
             'data_image'  => 'required|string|max:255',
             'data_id'     => 'required',
-            'data_genres' => 'nullable|string', // JSON string
+            'data_genres' => 'nullable|string',
         ]);
 
         $animeTitle = $validatedData['data_title'];

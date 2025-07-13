@@ -12,7 +12,7 @@ class Game extends Model
 
     protected $fillable = [
         'title',
-        'genre',
+        'genres',
         'date',
         'image_url',
         'db_id'

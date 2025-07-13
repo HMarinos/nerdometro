@@ -9,10 +9,13 @@ class Movie extends Model
 {
     use HasFactory;
     protected $table = 'movies_list';
+    protected $casts = [
+        'genres' => 'array',
+    ];
 
     protected $fillable = [
         'title',
-        'genre',
+        'genres',
         'date',
         'image_url',
         'db_id'

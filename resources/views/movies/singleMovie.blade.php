@@ -28,7 +28,7 @@
                         <input type="hidden" name="data_title" value="{{ $movie['title'] ?? $movie['original_title'] }}">
                         <input type="hidden" name="data_id" value="{{ $movie['id'] }}">
                         <input type="hidden" name="data_image" value="https://image.tmdb.org/t/p/w500{{ $movie['poster_path'] }}">
-                        
+                        <input type="hidden" name="data_genres" value='@json($movie["genres"])'>
                         <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
                             <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
                         </button>

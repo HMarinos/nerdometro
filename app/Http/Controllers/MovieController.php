@@ -51,19 +51,37 @@ class MovieController extends Controller
         $validateData = $request->validate([
             'data_title' => 'required|string|max:255',
             'data_image' => 'required|string|max:255',
-            'data_id'    => 'required'
+            'data_id'    => 'required',
+            'data_genres' => 'nullable|string', // JSON string
         ]);
 
         $movieTitle = $validateData['data_title'];
         $movieImage = $validateData['data_image'];
         $movieId = $validateData['data_id'];
 
+        // Extract only genre names
+        $rawGenres = json_decode($validateData['data_genres'] ?? '[]', true);
+
+        // dd($validateData);
+
+        $genreNames = collect($rawGenres)
+            ->pluck('name')
+            ->filter()       // remove nulls or empty
+            ->unique()
+            ->values()
+            ->all();         // final array of genre names
+
+        $genresJson = json_encode($genreNames); // Store as clean JSON
         $user = Auth::user();
-        $movie = Movie::updateOrCreate([
-            'title' => $movieTitle,
-            'image_url' => $movieImage,
-            'db_id' => $movieId
-        ]);
+
+        $movie = Movie::updateOrCreate(
+            ['db_id' => $movieId],
+            [
+                'title'     => $movieTitle,
+                'image_url' => $movieImage,
+                'genres'    => $genresJson, // Stored as ["Action", "Comedy"]
+            ]
+        );
 
         if($movie && $user){
             $user->movie()->attach($movie->id);

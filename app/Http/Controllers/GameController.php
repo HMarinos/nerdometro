@@ -50,20 +50,36 @@ class GameController extends Controller
         $validatedData = $request->validate([
             'data_title' => 'required|string|max:255',
             'data_image' => 'required|string|max:255',
-            'data_id'    => 'required'
+            'data_id'    => 'required',
+            'data_genres' => 'nullable|string',
         ]);
 
-        $animeTitle = $validatedData['data_title'];
-        $animeImage = $validatedData['data_image'];
-        $animeId = $validatedData['data_id'];
+        $gameTitle = $validatedData['data_title'];
+        $gameImage = $validatedData['data_image'];
+        $gameId = $validatedData['data_id'];
+
+        // Extract only genre names
+        $rawGenres = json_decode($validatedData['data_genres'] ?? '[]', true);
+
+        $genreNames = collect($rawGenres)
+            ->pluck('name')
+            ->filter()       
+            ->unique()
+            ->values()
+            ->all();        
+
+        $genresJson = json_encode($genreNames); 
         
         $user = Auth::user();
 
-        $game = Game::updateOrCreate([
-            'title' => $animeTitle,
-            'image_url' => $animeImage,
-            'db_id' => $animeId
-        ]);
+        $game = Game::updateOrCreate(
+            ['db_id' => $gameId],
+            [
+                'title'     => $gameTitle,
+                'image_url' => $gameImage,
+                'genres'    => $genresJson,
+            ]
+        );
 
         if($game && $user){
             $user->game()->attach($game->id);

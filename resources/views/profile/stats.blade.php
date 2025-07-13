@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="mt-8">
-                        categories graph here
+                        <x-chartjs-component :chart="$chartMovies" />
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="mt-8">
-                        categories graph here
+                        <x-chartjs-component :chart="$chartGames" />
                     </div>
                 </div>
             </div>
