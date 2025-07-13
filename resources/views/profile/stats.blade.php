@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="mt-8">
-                        <x-chartjs-component :chart="$chart" />
+                        <x-chartjs-component :chart="$chartAnime" />
                     </div>
                 </div>
             </div>

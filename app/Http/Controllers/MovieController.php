@@ -36,6 +36,8 @@ class MovieController extends Controller
         $already_added = $user && $movie_id ? $user->movie()->where('movie_id', $movie_id)->exists() : false;
         $in_wishlist = $user && $movie_id ? $user->movieWishlist()->where('movie_id', $movie_id)->exists() : false;
 
+        // dd($response);
+
         return view('/movies/singleMovie', [
             'movie' => $response,
             'video' => $firstTrailerObject,

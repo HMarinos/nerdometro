@@ -9,7 +9,7 @@ class Anime extends Model
 {
     use HasFactory;
     protected $table = 'anime_list';
-        protected $casts = [
+    protected $casts = [
         'genres' => 'array',
     ];
 

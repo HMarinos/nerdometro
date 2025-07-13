@@ -22,12 +22,13 @@
                             <i style="color:{{ $in_wishlist ? 'orange' : '' }}" class="fa-solid fa-eye text-lg"></i>
                         </button>
                     </form>
-                    {{-- add to watched --}}
+                    {{-- add movie --}}
                     <form action="{{ route('movie.add') }}" method="POST" class="flex items-center justify-centers m-0">
                         @csrf
                         <input type="hidden" name="data_title" value="{{ $movie['title'] ?? $movie['original_title'] }}">
                         <input type="hidden" name="data_id" value="{{ $movie['id'] }}">
                         <input type="hidden" name="data_image" value="https://image.tmdb.org/t/p/w500{{ $movie['poster_path'] }}">
+                        
                         <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
                             <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
                         </button>
