@@ -15,10 +15,16 @@ class UserStatsController extends Controller
         $watched_animes = $user->anime()->get();
         $total_anime_watched = $watched_animes->count();
 
+
         $AnimeGenreCount = [];
+        $total_episodes_watched_anime = 0;
+        $total_time_watched_mins_anime = 0;
 
         foreach ($watched_animes as $anime) {
             $genres = $anime->genres ?? [];
+
+            $total_episodes_watched_anime += $anime->episodes;
+            $total_time_watched_mins_anime += ((int)$anime->episodes) * ((int)$anime->duration);
 
             if (is_string($genres)) {
                 $genres = json_decode($genres, true);
@@ -32,6 +38,8 @@ class UserStatsController extends Controller
                 }
             }
         }
+
+        $total_time_watched_hours_anime = (int)round($total_time_watched_mins_anime / 60);
 
         $anime_total = array_sum($AnimeGenreCount);
         $AnimeGenreStats = [];
@@ -47,10 +55,14 @@ class UserStatsController extends Controller
         $watched_movies = $user->movie()->get();
         $total_movies_watched = $watched_movies->count();
 
+        $total_time_watched_mins_movies = 0;
+
         $MovieGenreCount = [];
 
         foreach ($watched_movies as $movie) {
             $genres = $movie->genres ?? [];
+
+            $total_time_watched_mins_movies += (int)$movie->duration;
 
             if (is_string($genres)) {
                 $genres = json_decode($genres, true);
@@ -64,6 +76,8 @@ class UserStatsController extends Controller
                 }
             }
         }
+
+        $total_time_watched_hours_movies = (int)round($total_time_watched_mins_movies / 60);
 
         $movie_total = array_sum($MovieGenreCount);
         $MovieGenreStats = [];
@@ -91,7 +105,7 @@ class UserStatsController extends Controller
         // Anime chart
         $chartAnime = Chartjs::build()
             ->name("AnimeGenresChart")
-            ->type("doughnut")
+            ->type("pie")
             ->size(["width" => 200, "height" => 200])
             ->labels(array_keys($AnimeGenreStats))
             ->datasets([
@@ -107,7 +121,7 @@ class UserStatsController extends Controller
         // Movie chart
         $chartMovies = Chartjs::build()
             ->name("MovieGenresChart")
-            ->type("doughnut")
+            ->type("pie")
             ->size(["width" => 200, "height" => 200])
             ->labels(array_keys($MovieGenreStats))
             ->datasets([
@@ -155,7 +169,7 @@ class UserStatsController extends Controller
             // Game chart
             $chartGames = Chartjs::build()
                 ->name("GameGenresChart")
-                ->type("doughnut")
+                ->type("pie")
                 ->size(["width" => 200, "height" => 200])
                 ->labels(array_keys($GameGenreStats))
                 ->datasets([
@@ -171,11 +185,14 @@ class UserStatsController extends Controller
         return view('profile/stats', [
             'AnimeGenreStats' => $AnimeGenreStats,
             'total_anime_watched' => $total_anime_watched,
+            'total_episodes_watched_anime' => $total_episodes_watched_anime,
+            'anime_hours_watched' => $total_time_watched_hours_anime,
             'chartAnime' => $chartAnime,
 
             'MovieGenreStats' => $MovieGenreStats,
             'total_movies_watched' => $total_movies_watched,
             'chartMovies' => $chartMovies,
+            'movies_hours_watched' => $total_time_watched_hours_movies,
 
             'GameGenreStats' => $GameGenreStats,
             'total_games_played' => $total_games_played,

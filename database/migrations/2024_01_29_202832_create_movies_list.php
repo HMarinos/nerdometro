@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title');
             $table->json('genres')->nullable();
+            $table->integer('duration')->nullable();
             $table->string('date')->default('');
             $table->string('image_url')->default('');
             $table->string('db_id')->unique()->default('');

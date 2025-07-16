@@ -15,7 +15,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('game_id');
 
-            // Define foreign key constraints explicitly
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('game_id')->references('id')->on('games_list')->onDelete('cascade');
         });

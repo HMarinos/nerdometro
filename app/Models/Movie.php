@@ -18,7 +18,8 @@ class Movie extends Model
         'genres',
         'date',
         'image_url',
-        'db_id'
+        'db_id',
+        'duration'
     ];
 
     public function users(){

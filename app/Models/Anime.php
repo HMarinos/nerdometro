@@ -18,7 +18,9 @@ class Anime extends Model
         'genres',
         'date',
         'image_url',
-        'db_id'
+        'db_id',
+        'duration',
+        'episodes'
     ];
 
     public function users(){

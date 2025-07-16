@@ -36,8 +36,6 @@ class MovieController extends Controller
         $already_added = $user && $movie_id ? $user->movie()->where('movie_id', $movie_id)->exists() : false;
         $in_wishlist = $user && $movie_id ? $user->movieWishlist()->where('movie_id', $movie_id)->exists() : false;
 
-        // dd($response);
-
         return view('/movies/singleMovie', [
             'movie' => $response,
             'video' => $firstTrailerObject,
@@ -52,26 +50,27 @@ class MovieController extends Controller
             'data_title' => 'required|string|max:255',
             'data_image' => 'required|string|max:255',
             'data_id'    => 'required',
-            'data_genres' => 'nullable|string', // JSON string
+            'data_genres' => 'nullable|string',
+            'data_duration' => 'nullable|integer'
         ]);
 
         $movieTitle = $validateData['data_title'];
         $movieImage = $validateData['data_image'];
         $movieId = $validateData['data_id'];
+        $movieDuration = $validateData['data_duration'];
 
-        // Extract only genre names
         $rawGenres = json_decode($validateData['data_genres'] ?? '[]', true);
 
         // dd($validateData);
 
         $genreNames = collect($rawGenres)
             ->pluck('name')
-            ->filter()       // remove nulls or empty
+            ->filter()       
             ->unique()
             ->values()
-            ->all();         // final array of genre names
+            ->all();         
 
-        $genresJson = json_encode($genreNames); // Store as clean JSON
+        $genresJson = json_encode($genreNames); 
         $user = Auth::user();
 
         $movie = Movie::updateOrCreate(
@@ -79,7 +78,8 @@ class MovieController extends Controller
             [
                 'title'     => $movieTitle,
                 'image_url' => $movieImage,
-                'genres'    => $genresJson, // Stored as ["Action", "Comedy"]
+                'genres'    => $genresJson, 
+                'duration'  => $movieDuration
             ]
         );
 
@@ -126,7 +126,6 @@ class MovieController extends Controller
             ], 404);
         }
 
-        // Assuming you have a movieWishlist() relationship on User
         $alreadyWishlisted = $user->movieWishlist()->where('movie_id', $movie->id)->exists();
 
         if ($alreadyWishlisted) {
@@ -166,19 +165,19 @@ class MovieController extends Controller
         return redirect()->route('category.show',['category'=>'movies'])->with('success', 'Movie deleted successfully!');
     }
 
-public function showList() {
+    public function showList() {
 
-    $watched_movies = Movie::whereHas('users', function($query) {
-        $query->where('user_id', Auth::id());
-    })->get();
+        $watched_movies = Movie::whereHas('users', function($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
 
-    $wishlisted = Movie::whereHas('wishlist', function($query) {
-        $query->where('user_id', Auth::id());
-    })->get();
+        $wishlisted = Movie::whereHas('wishlist', function($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
 
-    return view('movies/myMovieList', [
-        'watched' => $watched_movies,
-        'wishlisted' => $wishlisted
-    ]);
-}
+        return view('movies/myMovieList', [
+            'watched' => $watched_movies,
+            'wishlisted' => $wishlisted
+        ]);
+    }
 }

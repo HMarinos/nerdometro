@@ -46,10 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/game-remove-wishlist/{id}', [GameController::class, 'removeGameWishlist'])->name('game.remove.wishlist');
 
 
-    // Route::get('/category/{category}', function($category){
-    //     return view('category',['category'=>$category]);
-    // })->name('category.show');
-
     Route::get('/category/anime', [AnimeController::class, 'showList'])->name('anime.list');
     Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
     Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
@@ -63,7 +59,6 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
     Route::get('/search/games/all', [GameSearchController::class, 'searchAll'])->name('search.games.all');
-
 
     //stats 
     Route::get('/stats',[UserStatsController::class, 'userStats'])->name('user.stats');

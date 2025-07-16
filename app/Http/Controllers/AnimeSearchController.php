@@ -12,8 +12,7 @@ class AnimeSearchController extends Controller
     //
     public function search(Request $request)
     {
-        $query = $request->input('query'); // Capture search input
-        $top_results = [];
+        $query = $request->input('query');
 
         if ($query) {
             $url = 'https://api.jikan.moe/v4/anime?q=' . $query;
@@ -50,8 +49,8 @@ class AnimeSearchController extends Controller
                 foreach ($response['data'] as $result) {
                     $results[] = [
                         'title' => $result['title'],
-                        'mal_id' => $result['mal_id'],  // note this key name
-                        'image_url' => $result['images']['jpg']['image_url'],  // jpg version
+                        'mal_id' => $result['mal_id'],  
+                        'image_url' => $result['images']['jpg']['image_url'],  
                     ];
                 }
     
@@ -64,7 +63,7 @@ class AnimeSearchController extends Controller
         $userWatchedDbIds = [];
 
         if ($user = Auth::user()) {
-            $userWatchedDbIds = \DB::table('anime_user')  // your pivot for watched anime
+            $userWatchedDbIds = \DB::table('anime_user') 
                 ->where('anime_user.user_id', $user->id)
                 ->join('anime_list', 'anime_list.id', '=', 'anime_user.anime_id')
                 ->pluck('anime_list.db_id')
@@ -85,7 +84,7 @@ class AnimeSearchController extends Controller
             'query' => $query,
             'pagination' => $pagination,
             'userWishlistIds' => $userWishlistDbIds,
-            'userWatchedDbIds' => $userWatchedDbIds,   // new
+            'userWatchedDbIds' => $userWatchedDbIds,
         ]);
     }
 

@@ -18,7 +18,6 @@ class AnimeController extends Controller
 
         $user = Auth::user();   
 
-        // dump($anime);
 
         //check if the anime is already added
         $anime_id = Anime::where('db_id', $id)->value('id');
@@ -39,23 +38,32 @@ class AnimeController extends Controller
             'data_image'  => 'required|string|max:255',
             'data_id'     => 'required',
             'data_genres' => 'nullable|string',
+            'data_episodes' => 'nullable|integer',
+            'data_duration' => 'nullable|string'
         ]);
 
         $animeTitle = $validatedData['data_title'];
         $animeImage = $validatedData['data_image'];
         $animeId    = $validatedData['data_id'];
+        $animeEpisodes = $validatedData['data_episodes'];
+        $animeDuration = $validatedData['data_duration'];
+
+        $durationMatch = [];
+        preg_match('/\d+/', $animeDuration ?? '', $durationMatch);
+        $animeDurationMinutes = isset($durationMatch[0]) ? (int) $durationMatch[0] : null;
 
         // Extract only genre names
         $rawGenres = json_decode($validatedData['data_genres'] ?? '[]', true);
 
         $genreNames = collect($rawGenres)
             ->pluck('name')
-            ->filter()       // remove nulls or empty
+            ->filter()       
             ->unique()
             ->values()
-            ->all();         // final array of genre names
+            ->all();      
+            
 
-        $genresJson = json_encode($genreNames); // Store as clean JSON
+        $genresJson = json_encode($genreNames);
 
         $user = Auth::user();
 
@@ -64,7 +72,9 @@ class AnimeController extends Controller
             [
                 'title'     => $animeTitle,
                 'image_url' => $animeImage,
-                'genres'    => $genresJson, // Stored as ["Action", "Comedy"]
+                'genres'    => $genresJson,
+                'episodes'  => $animeEpisodes,
+                'duration'  => $animeDurationMinutes
             ]
         );
 

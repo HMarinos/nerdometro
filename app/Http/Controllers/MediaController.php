@@ -7,31 +7,32 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Movie;
 use App\Models\Anime;
 use App\Models\Game;
+use Illuminate\Support\Facades\Cache;
 
 class MediaController extends Controller
 {
     function fetchAndStoreMovie(){
-        $apiKey = '05abd598284193009c38291a6823dd0c';
-        $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
-            'api_key' => $apiKey
-        ])->json();
-        $movies = $response['results'];
-        // dump($movies);
-        return $movies;
+        return Cache::remember('top_rated_movies', 3600, function () {
+            $apiKey = '05abd598284193009c38291a6823dd0c';
+            $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
+                'api_key' => $apiKey
+            ])->json();
+            return $response['results'];
+        });
     }
 
     function fetchAndStoreAnime(){
-        $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
-        $anime = $response['data'];
-        // dump($anime);
-        return $anime;
+        return Cache::remember('top_rated_anime', 3600, function () {
+            $response = Http::get('https://api.jikan.moe/v4/top/anime')->json();
+            return $response['data'];
+        });
     }
     
     function fetchAndStoreGames(){
-        $api_key = '925517f17a024b508da64ad9f4d7e388';
-        $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
-        $games = $response['results'];
-        // dump($games);
-        return $games;
+        return Cache::remember('top_rated_games', 3600, function () {
+            $api_key = '925517f17a024b508da64ad9f4d7e388';
+            $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
+            return $response['results'];
+        });
     }
 }

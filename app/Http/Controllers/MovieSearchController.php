@@ -45,7 +45,7 @@ class MovieSearchController extends Controller
         $pagination = null;
 
         if ($query) {
-            // Example using TMDB API
+            
             $apiKey = '05abd598284193009c38291a6823dd0c';
             $url = "https://api.themoviedb.org/3/search/movie?api_key={$apiKey}&query=" . urlencode($query) . "&page={$page}";
             $response = \Illuminate\Support\Facades\Http::get($url)->json();
@@ -59,7 +59,6 @@ class MovieSearchController extends Controller
                     ];
                 }
 
-                // TMDB pagination
                 $pagination = [
                     'current_page' => $response['page'] ?? $page,
                     'last_visible_page' => $response['total_pages'] ?? 1,

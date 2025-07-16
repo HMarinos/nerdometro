@@ -100,7 +100,7 @@
         let debounceTimer;
 
         $('#movie-search-input').on('keyup', function () {
-            clearTimeout(debounceTimer); // clear previous timer
+            clearTimeout(debounceTimer);
 
             let query = $(this).val();
 
