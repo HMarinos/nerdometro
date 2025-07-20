@@ -61,16 +61,23 @@ class MovieController extends Controller
 
         $rawGenres = json_decode($validateData['data_genres'] ?? '[]', true);
 
-        // dd($validateData);
-
         $genreNames = collect($rawGenres)
-            ->pluck('name')
-            ->filter()       
+            ->map(function ($item) {
+                if (is_array($item) && array_key_exists('name', $item)) {
+                    return $item['name'];
+                }
+                if (is_object($item) && property_exists($item, 'name')) {
+                    return $item->name;
+                }
+                return $item;
+            })
+            ->filter()
             ->unique()
             ->values()
-            ->all();         
+            ->all();
 
         $genresJson = json_encode($genreNames); 
+
         $user = Auth::user();
 
         $movie = Movie::updateOrCreate(
@@ -83,18 +90,25 @@ class MovieController extends Controller
             ]
         );
 
-        if($movie && $user){
-            $user->movie()->attach($movie->id);
-
+        if (!$movie || !$user) {
             return response()->json([
-                'success' => true,
-                'message' => 'Movie added successfully!'
-            ]);
+                'success' => false,
+                'message' => 'User or Movie not found!',
+            ], 404);
         }
-        return response()->json([
-            'success' => false,
-            'message' => 'User or Movie not found!',
-        ], 404);
+
+        $alreadyAdded = $user->movie()->where('movie_id', $movie->id)->exists();
+
+        if ($alreadyAdded) {
+            $user->movie()->detach($movie->id);
+            $message = 'Movie removed from your watched list.';
+        } else {
+            $user->movie()->attach($movie->id);
+            $message = 'Movie added to your watched list.';
+        }
+
+        session()->flash('status', $message);
+        return back();
         
     }
 
@@ -159,10 +173,12 @@ class MovieController extends Controller
     public function deleteMovie($id){
 
         $movie = Movie::findOrFail($id);
+        $user = Auth::user();
 
-        $movie->delete();
+        $user->movie()->detach($movie->id);
 
-        return redirect()->route('category.show',['category'=>'movies'])->with('success', 'Movie deleted successfully!');
+        return redirect()->back()->with('success', 'Movie deleted successfully!');
+
     }
 
     public function showList() {

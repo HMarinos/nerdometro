@@ -107,7 +107,7 @@
                             // Add "View All Results" button
                             results += `
                                 <div style="margin-top:10px; display:flex; justify-content:center;">
-                                    <a href="/search/movie/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:rebeccapurple; color:white; border-radius:20px; text-decoration:none;">
+                                    <a href="/search/movies/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:rebeccapurple; color:white; border-radius:20px; text-decoration:none;">
                                         View All Results
                                     </a>
                                 </div>

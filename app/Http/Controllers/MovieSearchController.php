@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Movie;
+use Illuminate\Support\Arr;
 
 class MovieSearchController extends Controller
 {
-    //
+
     public function search(Request $request)
     {
-        $query = $request->input('query'); // Consistent with anime method
+        $query = $request->input('query');
         $top_results = [];
 
         if ($query) {
@@ -26,7 +27,7 @@ class MovieSearchController extends Controller
                         'image_url' => isset($result['poster_path']) 
                             ? 'https://image.tmdb.org/t/p/w500' . $result['poster_path'] 
                             : null,
-                        'db_id' => $result['id'] ?? null
+                        'db_id' => $result['id'] ?? null,
                     ];
                 }
             }
@@ -45,17 +46,37 @@ class MovieSearchController extends Controller
         $pagination = null;
 
         if ($query) {
-            
             $apiKey = '05abd598284193009c38291a6823dd0c';
             $url = "https://api.themoviedb.org/3/search/movie?api_key={$apiKey}&query=" . urlencode($query) . "&page={$page}";
-            $response = \Illuminate\Support\Facades\Http::get($url)->json();
+            $response = Http::get($url)->json();
+
+            $genreResponse = Http::get("https://api.themoviedb.org/3/genre/movie/list?api_key={$apiKey}")->json();
+            $genres = collect($genreResponse['genres'])->keyBy('id');
 
             if (isset($response['results'])) {
-                foreach ($response['results'] as $result) {
+                $results = [];
+                $movies = $response['results'];
+
+                $movieDetailsResponses = Http::pool(fn ($pool) =>
+                    collect($movies)->map(fn ($movie) =>
+                        $pool->get("https://api.themoviedb.org/3/movie/{$movie['id']}?api_key={$apiKey}")
+                    )->toArray()
+                );
+
+                foreach ($movies as $index => $movie) {
+                    $details = $movieDetailsResponses[$index]->json();
+                    $runtime = $details['runtime'] ?? null;
+
+                    $genreNames = collect($movie['genre_ids'])->map(fn ($id) =>
+                        $genres[$id]['name'] ?? 'Unknown'
+                    )->toArray();
+
                     $results[] = [
-                        'title' => $result['title'],
-                        'db_id' => $result['id'],
-                        'image_url' => isset($result['poster_path']) ? 'https://image.tmdb.org/t/p/w500' . $result['poster_path'] : '',
+                        'title' => $movie['title'],
+                        'db_id' => $movie['id'],
+                        'image_url' => isset($movie['poster_path']) ? 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] : '',
+                        'genres' => $genreNames,
+                        'runtime' => $runtime,
                     ];
                 }
 

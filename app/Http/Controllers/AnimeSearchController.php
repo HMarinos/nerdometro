@@ -51,6 +51,9 @@ class AnimeSearchController extends Controller
                         'title' => $result['title'],
                         'mal_id' => $result['mal_id'],  
                         'image_url' => $result['images']['jpg']['image_url'],  
+                        'genres' => $result['genres'] ?? [],
+                        'episodes' => $result['episodes'] ?? null,
+                        'duration' => $result['duration'] ?? null,
                     ];
                 }
     

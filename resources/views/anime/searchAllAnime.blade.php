@@ -54,6 +54,10 @@
                         <input type="hidden" name="data_title" value="{{ $item['title'] }}">
                         <input type="hidden" name="data_id" value="{{ $item['mal_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $item['image_url'] }}">
+                        <input type="hidden" name="data_genres" value='@json($item["genres"])'>
+                        <input type="hidden" name="data_episodes" value="{{ $item['episodes'] }}">
+                        <input type="hidden" name="data_duration" value="{{ $item['duration'] }}">
+
                         <button type="submit" title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
                             <i class="fa-solid fa-circle-check text-lg" style="color:{{ $exists ? 'green' : '' }}"></i>
                         </button>
