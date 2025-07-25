@@ -12,7 +12,13 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Quicksand', 'Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            fontWeight: {
+                normal: 500,
+                medium: 500,
+                semibold: 600,
+                bold: 700,
             },
         },
     },

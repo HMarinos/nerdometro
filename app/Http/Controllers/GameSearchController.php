@@ -56,6 +56,7 @@ class GameSearchController extends Controller
                         'title' => $game['name'],
                         'db_id' => $game['id'],
                         'image_url' => $game['background_image'] ?? null,
+                        'genres' => $game['genres'] ?? [],
                     ];
                 }
 

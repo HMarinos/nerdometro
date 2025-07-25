@@ -18,7 +18,6 @@ class AnimeController extends Controller
 
         $user = Auth::user();   
 
-
         //check if the anime is already added
         $anime_id = Anime::where('db_id', $id)->value('id');
         $already_added = $user->anime()->where('anime_id', $anime_id)->exists();

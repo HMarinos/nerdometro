@@ -52,6 +52,7 @@
                         <input type="hidden" name="data_title" value="{{ $item['title'] ?? $item['name'] }}">
                         <input type="hidden" name="data_id" value="{{ $item['db_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $item['image_url'] ?? $item['cover'] }}">
+                        <input type="hidden" name="data_genres" value='@json($item["genres"])'>
                         <button type="submit" title="{{ $exists ? 'Remove from Played' : 'Add to Played' }}">
                             <i class="fa-solid fa-circle-check text-lg" style="color:{{ $exists ? 'green' : '' }}"></i>
                         </button>
