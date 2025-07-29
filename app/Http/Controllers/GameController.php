@@ -81,18 +81,26 @@ class GameController extends Controller
             ]
         );
 
-        if($game && $user){
-            $user->game()->attach($game->id);
-
+        if (!$game || !$user) {
             return response()->json([
-                'success' => true,
-                'message' => 'Game added successfully!',
-            ]);
+                'success' => false,
+                'message' => 'User or Game not found!',
+            ], 404);
         }
-        return response()->json([
-            'success' => false,
-            'message' => 'User or Game not found!',
-        ], 404);
+
+        $alreadyAdded = $user->game()->where('game_id', $game->id)->exists();
+
+        if ($alreadyAdded) {
+            $user->game()->detach($game->id);
+            $message = 'Game removed from your list.';
+        } else {
+            $user->game()->attach($game->id);
+            $message = 'Game added to your list.';
+        }
+
+        session()->flash('status', $message);
+        return back();
+
     }
 
     public function addGameWishlist(Request $request)
