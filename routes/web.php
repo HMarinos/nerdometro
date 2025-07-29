@@ -5,13 +5,13 @@ use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
-use App\Http\controllers\AnimeController;
-use App\Http\controllers\MovieController;
-use App\Http\controllers\GameController;
-use App\Http\controllers\AnimeSearchController;
-use App\Http\controllers\MovieSearchController;
-use App\Http\controllers\GameSearchController;
-use App\Http\controllers\UserStatsController;
+use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\AnimeSearchController;
+use App\Http\Controllers\MovieSearchController;
+use App\Http\Controllers\GameSearchController;
+use App\Http\Controllers\UserStatsController;
 
 /*
 |--------------------------------------------------------------------------
