@@ -8,11 +8,13 @@
         @foreach ($movies as $movie)
             <li
                 class="rounded-lg border cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
-                    src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}">
-                <div class="title">
-                    <a href="/movie/{{$movie['id']}}">{{ $movie['title'] }}</a>
-                </div>
+                <a href="/movie/{{$movie['id']}}">
+                    <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
+                        src="{{ 'https://image.tmdb.org/t/p/w500/' . $movie['poster_path'] }}">
+                    <div class="title">
+                        <span >{{ $movie['title'] }}</span>
+                    </div>
+                </a>
             </li>
         @endforeach
     </ul>
@@ -22,11 +24,13 @@
     <ul class="grid grid-cols-6 gap-4">
         @foreach ($anime as $anime)
             <li class="rounded-lg flex flex-col justify-between items-center group overflow-hidden">
-                <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
-                    src="{{ $anime['images']['jpg']['large_image_url'] }}" alt="">
-                <div class="title">
-                    <a href="/anime/{{ $anime['mal_id'] }}" class="z-20">{{ $anime['title'] }}</a>
-                </div>
+                <a  href="/anime/{{ $anime['mal_id'] }}">
+                    <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
+                        src="{{ $anime['images']['jpg']['large_image_url'] }}" alt="">
+                    <div class="title">
+                        <span class="z-20">{{ $anime['title'] }}</span>
+                    </div>
+                </a>
             </li>
         @endforeach
     </ul>
@@ -36,11 +40,13 @@
     <ul class="grid grid-cols-6 gap-4">
         @foreach ($games as $game)
             <li class="rounded-lg cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="{{ $game['background_image'] }}"
-                    alt="">
-                <div class="title">
-                    <a href="/game/{{$game['id']}}">{{ $game['name'] }}</a>
-                </div>
+                <a href="/game/{{$game['id']}}">
+                    <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="{{ $game['background_image'] }}"
+                        alt="">
+                    <div class="title">
+                        <span >{{ $game['name'] }}</span>
+                    </div>
+                </a>
             </li>
         @endforeach
     </ul>

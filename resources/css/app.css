@@ -33,6 +33,7 @@
     padding-right: 0.2rem;
 }
 .tabcontent ul li::after {
+    pointer-events: none;
     transition: 0.2s ease all;
     position: absolute;
     bottom: 50px;
@@ -50,6 +51,10 @@
         rgba(0, 0, 0, 0.896796218487395) 86%,
         rgba(0, 0, 0, 1) 100%
     );
+}
+
+.tabcontent li span {
+    margin: 0 auto;
 }
 .tablinks {
     border-radius: 5px;

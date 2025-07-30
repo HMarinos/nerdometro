@@ -25,7 +25,7 @@ use App\Http\Controllers\UserStatsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard']) ->name("dashboard");

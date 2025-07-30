@@ -19,8 +19,11 @@
     </section>
 
     <section class="mt-20 tabcontent">
-        <div class="mb-8 px-4">
-            I've watched :
+        <div class="mb-4 text-lg px-4 py-2 bg-[rebeccapurple]">Watched</div>
+        <div x-data="{ watched: @json($watched ?? []) }" class="mb-8 px-4">
+            <template x-if="watched.length === 0">
+                <span>Empty</span>
+            </template>
         </div>
         @if(isset($watched) && $watched)
         <ul class="grid grid-cols-5 gap-6 ">
@@ -43,8 +46,11 @@
     </section>
 
     <section class="mt-20 tabcontent">
-        <div class="mb-8 px-4">
-            Wishlist :
+        <div class="mb-4 text-lg px-4 py-2 bg-[rebeccapurple]">Wishlist</div>
+        <div x-data="{ watched: @json($wishlisted ?? []) }" class="mb-8 px-4">
+            <template x-if="watched.length === 0">
+                <span>Empty</span>
+            </template>
         </div>
         @if(isset($wishlisted) && $wishlisted)
         <ul class="grid grid-cols-5 gap-6 ">
