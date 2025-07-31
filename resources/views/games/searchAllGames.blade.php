@@ -23,7 +23,7 @@
             Seeing results for: {{ $query }}
         </div>
         @if(isset($results) && $results)
-        <ul class="grid grid-cols-5 gap-6 ">
+        <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
             @foreach ($results as $item)
                 <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                     <img src="{{$item['image_url'] ?? $item['cover']}}" alt="game image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">

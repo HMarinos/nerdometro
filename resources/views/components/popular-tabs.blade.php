@@ -4,7 +4,7 @@
     <button class="tablinks" onclick="openCity(event, 'Games')">Games</button>
 </div>
 <div id="Movies" class="tabcontent">
-    <ul class="grid grid-cols-6 gap-4">
+    <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($movies as $movie)
             <li
                 class="rounded-lg border cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
@@ -21,7 +21,7 @@
 </div>
 
 <div id="Anime" class="tabcontent hidden">
-    <ul class="grid grid-cols-6 gap-4">
+    <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($anime as $anime)
             <li class="rounded-lg flex flex-col justify-between items-center group overflow-hidden">
                 <a  href="/anime/{{ $anime['mal_id'] }}">
@@ -37,7 +37,7 @@
 </div>
 
 <div id="Games" class="tabcontent hidden">
-    <ul class="grid grid-cols-6 gap-4">
+    <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($games as $game)
             <li class="rounded-lg cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                 <a href="/game/{{$game['id']}}">

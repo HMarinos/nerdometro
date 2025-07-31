@@ -7,7 +7,7 @@
 
     <div class="py-12 flex flex-col items-center justify-center gap-6 flex-wrap">
         <h2>My lists</h2>
-        <div class="flex flex-wrap gap-6 justify-center">
+        <div class="flex flex-wrap items-center justify-center gap-4">
             @foreach (['Anime', 'Games', 'Movies'] as $title)
                 @component('components.category-card', ['cat_title' => $title, 'cat_link' => strtolower($title)])
                 @endcomponent
