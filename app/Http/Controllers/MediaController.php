@@ -29,10 +29,12 @@ class MediaController extends Controller
     }
     
     function fetchAndStoreGames(){
-        return Cache::remember('top_rated_games', 3600, function () {
+        return Cache::remember('most_popular_games', 3600, function () {
             $api_key = '925517f17a024b508da64ad9f4d7e388';
-            $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-rating")->json();
+            $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-added")->json();
+
             return $response['results'];
         });
     }
+
 }
