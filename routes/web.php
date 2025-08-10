@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/game-remove-wishlist/{id}', [GameController::class, 'removeGameWishlist'])->name('game.remove.wishlist');
 
 
-    Route::get('/category/anime', [AnimeController::class, 'showList'])->name('anime.list');
+    Route::get('/category/anime', [AnimeController::class, 'category'])->name('anime.category');
     Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
     Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
     

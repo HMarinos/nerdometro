@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\MediaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,6 +12,22 @@ use Illuminate\Support\Facades\Log;
 
 class AnimeController extends Controller
 {
+
+    public function category(Request $request){
+
+        $mediaController = new MediaController();
+        $anime_global = $mediaController-> topAnimeGlobal();
+        $anime_airing = $mediaController-> topAnimeAiring();
+        $anime_characters = $mediaController-> topAnimeCharacters();
+
+        return view('/anime/category',[
+            'anime_global' => $anime_global,
+            'anime_airing' => $anime_airing,
+            'anime_characters' => $anime_characters 
+        ]);
+
+    }
+
     public function showSingleAnime($id){
         $url = 'https://api.jikan.moe/v4/anime/' . $id . '/full';
         $response = Http::get($url)->json();

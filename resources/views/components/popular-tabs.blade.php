@@ -1,9 +1,9 @@
 <div class="tab overflow-hidden flex items-center justify-center gap-6 pb-10 py-[1.5rem] mb-8">
-    <button class="tablinks active" onclick="openCity(event, 'Movies')">Movies</button>
+    {{-- <button class="tablinks active" onclick="openCity(event, 'Movies')">Movies</button> --}}
     <button class="tablinks" onclick="openCity(event, 'Anime')">Anime</button>
-    <button class="tablinks" onclick="openCity(event, 'Games')">Games</button>
+    {{-- <button class="tablinks" onclick="openCity(event, 'Games')">Games</button> --}}
 </div>
-<div id="Movies" class="tabcontent">
+{{-- <div id="Movies" class="tabcontent">
     <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($movies as $movie)
             <li
@@ -18,9 +18,9 @@
             </li>
         @endforeach
     </ul>
-</div>
+</div> --}}
 
-<div id="Anime" class="tabcontent hidden">
+<div id="Anime" class="tabcontent">
     <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($anime as $anime)
             <li class="rounded-lg flex flex-col justify-between items-center group overflow-hidden">
@@ -36,7 +36,7 @@
     </ul>
 </div>
 
-<div id="Games" class="tabcontent hidden">
+{{-- <div id="Games" class="tabcontent hidden">
     <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         @foreach ($games as $game)
             <li class="rounded-lg cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
@@ -50,7 +50,7 @@
             </li>
         @endforeach
     </ul>
-</div>
+</div> --}}
 
 
 <script>

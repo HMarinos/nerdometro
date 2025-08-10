@@ -8,22 +8,22 @@
     box-sizing: border-box;
 }
 
-.tabcontent ul li {
+.tabcontent .cont .item {
     background-color: black;
     border: 1px solid black;
     position: relative;
-    box-shadow: 0px 0px 50px #66339999;
     cursor: pointer;
 }
-.tabcontent ul li img {
+
+.tabcontent .cont .item img {
     aspect-ratio: 240/360;
     object-fit: cover;
 }
 
-.tabcontent ul li:hover::after {
+.tabcontent .cont .item:hover::after {
     height: 100%;
 }
-.tabcontent ul li .title {
+.tabcontent .cont .item .title {
     font-size: 14px;
     text-align: center;
     height: 50px;
@@ -32,7 +32,7 @@
     padding-left: 0.2rem;
     padding-right: 0.2rem;
 }
-.tabcontent ul li::after {
+.tabcontent .cont .item::after {
     pointer-events: none;
     transition: 0.2s ease all;
     position: absolute;
@@ -53,7 +53,7 @@
     );
 }
 
-.tabcontent li span {
+.tabcontent .item span {
     margin: 0 auto;
 }
 .tablinks {
