@@ -22,7 +22,7 @@
   </script>
 
     <div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50" x-data="tabsApp">
-        <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="container mx-auto px-4 py-8 max-w-[1400px]">
             <!-- Header -->
             <div class="text-center mb-8">
             <h1 class="text-4xl font-bold text-gray-800 mb-2">My Lists</h1>
