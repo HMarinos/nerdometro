@@ -110,3 +110,30 @@ main h2 {
     border: 1px solid rebeccapurple;
     border-radius: 4px;
 }
+
+.swiper {
+    padding-bottom: 40px !important;
+}
+
+.swiper-button-prev::after, .swiper-button-next::after {
+    font-size: 22px !important;
+    color: white !important;
+}
+.swiper-button-prev, .swiper-button-next {
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 0 0 4px #dc2626;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 100% !important;
+    transition: 0.2s ease all;
+}
+
+.swiper-button-prev:hover, .swiper-button-next:hover {
+    box-shadow: 0 0 12px #dc2626 !important;
+}
+
+.swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+    background-color: white !important;
+}

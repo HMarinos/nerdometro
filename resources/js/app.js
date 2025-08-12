@@ -7,6 +7,7 @@ window.Alpine = Alpine;
 Alpine.start();
 
 const animeswiper1 = new Swiper(".animeswiper1", {
+    loop: true,
     slidesPerView: 5,
     spaceBetween: 10,
     navigation: {
@@ -21,6 +22,7 @@ const animeswiper1 = new Swiper(".animeswiper1", {
 });
 
 const animeswiper2 = new Swiper(".animeswiper2", {
+    loop: true,
     slidesPerView: 5,
     spaceBetween: 10,
     navigation: {
@@ -35,9 +37,14 @@ const animeswiper2 = new Swiper(".animeswiper2", {
 });
 
 const animeswipe3 = new Swiper(".animeswiper3", {
+    loop: true,
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: true,
+    },
     speed: 600,
     spaceBetween: 10,
-    slidesPerView: 1.2,
+    slidesPerView: 1,
     parallax: true,
     pagination: {
         el: ".swiper-pagination",

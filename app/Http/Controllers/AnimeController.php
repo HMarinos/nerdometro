@@ -20,6 +20,8 @@ class AnimeController extends Controller
         $anime_airing = $mediaController-> topAnimeAiring();
         $anime_characters = $mediaController-> topAnimeCharacters();
 
+        // dump($anime_characters);
+
         return view('/anime/category',[
             'anime_global' => $anime_global,
             'anime_airing' => $anime_airing,

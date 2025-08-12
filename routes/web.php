@@ -12,6 +12,8 @@ use App\Http\Controllers\AnimeSearchController;
 use App\Http\Controllers\MovieSearchController;
 use App\Http\Controllers\GameSearchController;
 use App\Http\Controllers\UserStatsController;
+use App\Http\Controllers\MyLibraryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,8 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/search/games', [GameSearchController::class, 'search'])->name('search.games');
     Route::get('/search/games/all', [GameSearchController::class, 'searchAll'])->name('search.games.all');
+
+    Route::get('/my-library', [MyLibraryController::class, 'index'])->name('my-lists');
 
     //stats 
     Route::get('/stats',[UserStatsController::class, 'userStats'])->name('user.stats');

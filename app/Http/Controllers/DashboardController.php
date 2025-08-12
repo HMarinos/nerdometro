@@ -11,11 +11,6 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $mediaController = new MediaController();
-        $movies = $mediaController-> fetchAndStoreMovie();
-        $anime = $mediaController-> fetchAndStoreAnime();
-        $games = $mediaController-> fetchAndStoreGames();
-
-        return view('dashboard', compact('movies', 'anime', 'games'));
+        return view('dashboard');
     }
 }
