@@ -20,7 +20,7 @@
 <body class="font-sans antialiased bg-[#121212] text-[#F0F0F0]">
     <div class="min-h-screen">
         @include('layouts.navigation')
-        <main {{ $attributes->merge(['class' => 'px-8 py-8 max-w-[1600px] w-full mx-auto']) }}>
+        <main {{ $attributes->merge(['class' => 'px-8 py-8 w-full mx-auto']) }}>
             {{ $slot }}
         </main>
     </div>
