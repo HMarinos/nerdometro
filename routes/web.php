@@ -49,7 +49,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/category/anime', [AnimeController::class, 'category'])->name('anime.category');
-    Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
+    // Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
+    Route::get('/category/movies', [MovieController::class, 'category'])->name('movies.category');
     Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
     
 

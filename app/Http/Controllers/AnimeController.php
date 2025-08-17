@@ -175,22 +175,22 @@ class AnimeController extends Controller
         return back();
     }
 
-    public function showList() {
+    // public function showList() {
 
-        $watched_anime = Anime::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+    //     $watched_anime = Anime::whereHas('users', function($query) {
+    //         $query->where('user_id', Auth::id());
+    //     })->get();
 
-        $wishlisted = Anime::whereHas('wishlist', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+    //     $wishlisted = Anime::whereHas('wishlist', function($query) {
+    //         $query->where('user_id', Auth::id());
+    //     })->get();
 
 
-        return view('anime/myAnimeList',[
-            'watched' => $watched_anime,
-            'wishlisted' => $wishlisted
-        ]);
-    }
+    //     return view('anime/myAnimeList',[
+    //         'watched' => $watched_anime,
+    //         'wishlisted' => $wishlisted
+    //     ]);
+    // }
     
     public function deleteAnime($id){
 
@@ -199,6 +199,6 @@ class AnimeController extends Controller
 
         $user->anime()->detach($anime->id);
 
-        return redirect()->route('anime.list')->with('success', 'Anime deleted successfully!');
+        return redirect()->route('my-lists')->with('success', 'Anime deleted successfully!');
     }
 }

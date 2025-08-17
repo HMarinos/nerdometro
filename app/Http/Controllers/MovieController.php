@@ -10,6 +10,27 @@ use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
+
+    public function category(Request $request){
+
+        $mediaController = new MediaController();
+        $movies_global = $mediaController-> topMoviesGlobal();
+        $movies_airing = $mediaController-> topMoviesAiring();
+        $movies_people = $mediaController-> topMoviePeople();
+        $test = $mediaController-> popularActorsV4();
+        dump($test);
+
+        // dump($anime_characters);
+
+        return view('/movies/category',[
+            'movies_global' => $movies_global,
+            'movies_airing' => $movies_airing,
+            'movies_people' => $movies_people 
+        ]);
+
+    }
+
+
     function showSingleMovie($id){
         $apiKey = '05abd598284193009c38291a6823dd0c';
         $response = Http::get('https://api.themoviedb.org/3/movie/'. $id, [
@@ -181,19 +202,19 @@ class MovieController extends Controller
 
     }
 
-    public function showList() {
+    // public function showList() {
 
-        $watched_movies = Movie::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+    //     $watched_movies = Movie::whereHas('users', function($query) {
+    //         $query->where('user_id', Auth::id());
+    //     })->get();
 
-        $wishlisted = Movie::whereHas('wishlist', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+    //     $wishlisted = Movie::whereHas('wishlist', function($query) {
+    //         $query->where('user_id', Auth::id());
+    //     })->get();
 
-        return view('movies/myMovieList', [
-            'watched' => $watched_movies,
-            'wishlisted' => $wishlisted
-        ]);
-    }
+    //     return view('movies/myMovieList', [
+    //         'watched' => $watched_movies,
+    //         'wishlisted' => $wishlisted
+    //     ]);
+    // }
 }

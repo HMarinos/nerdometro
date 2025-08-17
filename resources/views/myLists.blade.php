@@ -94,16 +94,16 @@
                         For Future Me
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
-                            @if(isset($wishlisted_anime) && $wishlisted_anime)
+                            @if(isset($wishlisted_anime) && count($wishlisted_anime) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
-                                    @foreach ($wishlisted_anime as $anime)
+                                    @foreach ($wishlisted_anime as $anime_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$anime['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                            <img src="{{$anime_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
                                             <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$anime['db_id']}}">{{$anime['title']}}</a>
+                                                <a href="/anime/{{$anime_wish['db_id']}}">{{$anime_wish['title']}}</a>
                                             </div>
 
-                                            <form action="{{route('anime.delete',$anime->id)}}" method="POST">
+                                            <form action="{{route('anime.remove.wishlist',$anime_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
@@ -139,7 +139,7 @@
                                                 <a href="/anime/{{$movie['db_id']}}">{{$movie['title']}}</a>
                                             </div>
 
-                                            <form action="{{route('anime.delete',$movie->id)}}" method="POST">
+                                            <form action="{{route('movie.delete',$movie->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
@@ -160,16 +160,16 @@
                         For Future Me
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
-                            @if(isset($wishlisted_movies) && $wishlisted_movies)
+                            @if(isset($wishlisted_movies) && count($wishlisted_movies) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
-                                    @foreach ($wishlisted_movies as $movie)
+                                    @foreach ($wishlisted_movies as $movie_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$movie['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                            <img src="{{$movie_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
                                             <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$movie['db_id']}}">{{$movie['title']}}</a>
+                                                <a href="/anime/{{$movie_wish['db_id']}}">{{$movie_wish['title']}}</a>
                                             </div>
 
-                                            <form action="{{route('anime.delete',$movie->id)}}" method="POST">
+                                            <form action="{{route('movie.remove.wishlist',$movie_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
@@ -205,7 +205,7 @@
                                                 <a href="/anime/{{$game['db_id']}}">{{$game['title']}}</a>
                                             </div>
 
-                                            <form action="{{route('anime.delete',$game->id)}}" method="POST">
+                                            <form action="{{route('game.delete',$game->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
@@ -226,16 +226,16 @@
                         For Future Me
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
-                            @if(isset($wishlisted_games) && $wishlisted_games)
+                            @if(isset($wishlisted_games) && count($wishlisted_games) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
-                                    @foreach ($wishlisted_games as $game)
+                                    @foreach ($wishlisted_games as $game_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$game['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                            <img src="{{$game_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
                                             <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$game['db_id']}}">{{$game['title']}}</a>
+                                                <a href="/anime/{{$game_wish['db_id']}}">{{$game_wish['title']}}</a>
                                             </div>
 
-                                            <form action="{{route('anime.delete',$game->id)}}" method="POST">
+                                            <form action="{{route('game.remove.wishlist',$game_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>

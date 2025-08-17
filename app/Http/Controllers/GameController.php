@@ -169,7 +169,7 @@ class GameController extends Controller
 
         $game->delete();
 
-        return redirect()->route('category.show',['category'=>'games'])->with('success', 'Game deleted successfully!');
+        return redirect()->route('my-lists')->with('success', 'Game deleted successfully!');
     }
     
 }

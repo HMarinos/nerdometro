@@ -66,8 +66,8 @@ class MediaController extends Controller
         });
     }
 
-
-    function MediaMovies(){
+    //movies
+    function topMoviesGlobal(){
         return Cache::remember('top_rated_movies', 3600, function () {
             $apiKey = '05abd598284193009c38291a6823dd0c';
             $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
@@ -77,7 +77,61 @@ class MediaController extends Controller
         });
     }
 
+
+    function topMoviesAiring(){
+        return Cache::remember('top_airing_movies', 3600, function () {
+            $apiKey = '05abd598284193009c38291a6823dd0c';
+            $response = Http::get('https://api.themoviedb.org/3/movie/now_playing', [
+                'api_key' => $apiKey
+            ])->json();
+            return $response['results'];
+        });
+    }
+
+
+    function topMoviesUpcomming(){
+        return Cache::remember('top_upcomming_movies', 3600, function () {
+            $apiKey = '05abd598284193009c38291a6823dd0c';
+            $response = Http::get('https://api.themoviedb.org/3/movie/upcoming', [
+                'api_key' => $apiKey
+            ])->json();
+            return $response['results'];
+        });
+    }
+
+    function topMoviePeople(){
+        return Cache::remember('top_actors', 3600, function () {
+            $apiKey = '05abd598284193009c38291a6823dd0c';
+            $response = Http::get('https://api.themoviedb.org/3/person/popular', [
+                'api_key' => $apiKey
+            ])->json();
+            return $response['results'];
+        });
+    }
+
+    function popularActorsV4(){
+    return Cache::remember('popular_actors_v4', 3600, function () {
+        $bearerToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNWFiZDU5ODI4NDE5MzAwOWMzODI5MWE2ODIzZGQwYyIsIm5iZiI6MTcwNjU2MDcxOC42MDA5OTk4LCJzdWIiOiI2NWI4MGNjZWY2MjFiMjAxNjNjODFiZTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.jd6ERrwpBZRJCmgufB-OXSPCrwO372GGsAGmR3V-CyM';
+        
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $bearerToken,
+            'Content-Type' => 'application/json;charset=utf-8'
+        ])->get('https://api.themoviedb.org/3/person/popular');
+        
+        $data = $response->json();
+        
+        if (!$response->successful() || !isset($data['results'])) {
+            \Log::error('TMDB API V4 Error:', $data);
+            return [];
+        }
+        
+        return $data['results'];
+    });
+}
     
+
+
+    //games
     function MediaGames(){
         return Cache::remember('most_popular_games', 3600, function () {
             $api_key = '925517f17a024b508da64ad9f4d7e388';
