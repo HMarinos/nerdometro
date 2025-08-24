@@ -31,7 +31,7 @@
             <img class="absolute inset-0 z-[1] group-hover:scale-[1.1] transition-all" src="/images/thematrix_vertical.jpg" alt="">
             <div class="text-[2.4rem] uppercase font-black text-moviecolor relative z-[3] group-hover:text-[3rem] transition-all mb-[15%] rounded-lg px-[10px] py-0 bg-[rgba(255,255,255,0.1)] backdrop-blur-md">movies</div>
         </a>
-        <a href="#" class="relative flex items-end justify-center group transition-all overflow-hidden">
+        <a href="category/games" class="relative flex items-end justify-center group transition-all overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/100 pointer-events-none transition-all z-[2]"></div>
             <img class="absolute inset-0 z-[1] group-hover:scale-[1.1] transition-all" src="/images/thewitcher_vertical.jpg" alt="">
             <div class="text-[2.4rem] uppercase font-black text-gamecolor relative z-[3] group-hover:text-[3rem] transition-all mb-[15%] rounded-lg px-[10px] py-0 bg-[rgba(255,255,255,0.1)] backdrop-blur-md">games</div>

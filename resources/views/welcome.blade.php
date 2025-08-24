@@ -12,7 +12,7 @@
 
         <!-- Styles -->
     </head>
-    <body class="antialiased">
+    <body class="antialiased max-w-[1920px] mx-auto">
         <div>
             @if (Route::has('login'))
                 <div>

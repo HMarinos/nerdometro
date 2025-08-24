@@ -16,16 +16,12 @@ class MovieController extends Controller
         $mediaController = new MediaController();
         $movies_global = $mediaController-> topMoviesGlobal();
         $movies_airing = $mediaController-> topMoviesAiring();
-        $movies_people = $mediaController-> topMoviePeople();
-        $test = $mediaController-> popularActorsV4();
-        dump($test);
-
-        // dump($anime_characters);
+        $actors = $mediaController-> topMoviePeople();
 
         return view('/movies/category',[
             'movies_global' => $movies_global,
             'movies_airing' => $movies_airing,
-            'movies_people' => $movies_people 
+            'actors' => $actors 
         ]);
 
     }

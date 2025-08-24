@@ -83,7 +83,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No completed anime yet</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add your finished anime here</p>
+                                <a href="/category/anime" class="text-sm text-gray-400 mt-1 underline">Add your finished anime here</a>
                             @endif
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No anime in your watchlist</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add anime you want to watch later</p>
+                                <a href="/category/anime" class="text-sm text-gray-400 mt-1 underline">Add anime you want to watch later</a>
                             @endif
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No completed movies yet</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add your finished movies here</p>
+                                <a href="/category/movies" class="text-sm text-gray-400 mt-1 underline">Add your finished movies here</a>
                             @endif
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No movies in your watchlist</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add movies you want to watch later</p>
+                                <a href="/category/movies" class="text-sm text-gray-400 mt-1 underline">Add movies you want to watch later</a>
                             @endif
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No games played yet</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add the games you've played here</p>
+                                <a href="/category/games" class="text-sm text-gray-400 mt-1 underline">Add the games you've a layed here</a>
                             @endif
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                                 </div>
                             @else
                                 <p class="text-gray-500">No games in your watchlist</p>
-                                <p class="text-sm text-gray-400 mt-1 underline">Add games you want to play later</p>
+                                <a href="/category/games" class="text-sm text-gray-400 mt-1 underline">Add games you want to play later</a>
                             @endif
                         </div>
                     </div>

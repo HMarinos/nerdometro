@@ -13,11 +13,11 @@
 
             <div class="flex items-center justify-center w-1/3">
                 <ul class="flex items-center justify-center gap-2 text-sm">
-                    <li><a href="" class="hover:font-bold transition-all">ANIME</a></li>
+                    <li><a href="/category/anime" class="hover:font-bold transition-all">ANIME</a></li>
                     <li class="w-[6px] h-[6px] rounded-full bg-white"></li>
-                    <li><a href="" class="hover:font-bold transition-all">MOVIES</a></li>
+                    <li><a href="/category/movies" class="hover:font-bold transition-all">MOVIES</a></li>
                     <li class="w-[6px] h-[6px] rounded-full bg-white"></li>
-                    <li><a href="" class="hover:font-bold transition-all">GAMES</a></li>
+                    <li><a href="/category/games" class="hover:font-bold transition-all">GAMES</a></li>
                 </ul>
             </div>
 

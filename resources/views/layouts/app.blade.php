@@ -17,7 +17,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-[#121212] text-[#F0F0F0]">
+<body class="font-sans antialiased bg-[#121212] text-[#F0F0F0] max-w-[1920px] mx-auto">
     <div class="min-h-screen">
         @include('layouts.navigation')
         <main {{ $attributes->merge(['class' => 'px-8 py-8 w-full mx-auto']) }}>

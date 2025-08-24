@@ -49,10 +49,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/category/anime', [AnimeController::class, 'category'])->name('anime.category');
-    // Route::get('/category/movies', [MovieController::class, 'showList'])->name('movies.list');
     Route::get('/category/movies', [MovieController::class, 'category'])->name('movies.category');
-    Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
-    
+    // Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
+    Route::get('/category/games', [GameController::class, 'category'])->name('games.category');
+
 
     Route::get('/search/anime', [AnimeSearchController::class, 'search'])->name('search.anime');
     Route::get('search/anime/all', [AnimeSearchController::class, 'searchAll'])->name('search.anime.all');

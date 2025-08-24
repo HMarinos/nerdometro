@@ -99,18 +99,9 @@ class MediaController extends Controller
         });
     }
 
-    function topMoviePeople(){
-        return Cache::remember('top_actors', 3600, function () {
-            $apiKey = '05abd598284193009c38291a6823dd0c';
-            $response = Http::get('https://api.themoviedb.org/3/person/popular', [
-                'api_key' => $apiKey
-            ])->json();
-            return $response['results'];
-        });
-    }
 
-    function popularActorsV4(){
-    return Cache::remember('popular_actors_v4', 3600, function () {
+    function topMoviePeople(){
+        return Cache::remember('popular_actors_v4', 3600, function () {
         $bearerToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNWFiZDU5ODI4NDE5MzAwOWMzODI5MWE2ODIzZGQwYyIsIm5iZiI6MTcwNjU2MDcxOC42MDA5OTk4LCJzdWIiOiI2NWI4MGNjZWY2MjFiMjAxNjNjODFiZTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.jd6ERrwpBZRJCmgufB-OXSPCrwO372GGsAGmR3V-CyM';
         
         $response = Http::withHeaders([
@@ -121,7 +112,6 @@ class MediaController extends Controller
         $data = $response->json();
         
         if (!$response->successful() || !isset($data['results'])) {
-            \Log::error('TMDB API V4 Error:', $data);
             return [];
         }
         
@@ -132,7 +122,7 @@ class MediaController extends Controller
 
 
     //games
-    function MediaGames(){
+    function topGames(){
         return Cache::remember('most_popular_games', 3600, function () {
             $api_key = '925517f17a024b508da64ad9f4d7e388';
             $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&ordering=-added")->json();
@@ -140,5 +130,25 @@ class MediaController extends Controller
             return $response['results'];
         });
     }
+
+    function trendingGames() {
+        return Cache::remember('trending_games', 3600, function () {
+            $api_key = '925517f17a024b508da64ad9f4d7e388';
+            $dates = now()->subDays(30)->format('Y-m-d') . ',' . now()->format('Y-m-d');
+            $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&dates={$dates}&ordering=-added")->json();
+            return $response['results'];
+        });
+    }
+
+    function newReleases() {
+        return Cache::remember('new_releases', 3600, function () {
+            $api_key = '925517f17a024b508da64ad9f4d7e388';
+            $start = now()->startOfMonth()->format('Y-m-d');
+            $end = now()->endOfMonth()->format('Y-m-d');
+            $response = Http::get("https://api.rawg.io/api/games?key={$api_key}&dates={$start},{$end}&ordering=-released")->json();
+            return $response['results'];
+        });
+    }
+
 
 }

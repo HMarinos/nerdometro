@@ -147,19 +147,17 @@ class GameController extends Controller
     }
 
 
-    public function showList() {
+    public function category() {
 
-        $played_games = Game::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+        $mediaController = new MediaController();
+        $top_games = $mediaController->topGames();
+        $trending_games = $mediaController->trendingGames();
+        $new_releases = $mediaController->newReleases();
 
-        $wishlisted = Game::whereHas('wishlist', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
-
-        return view('games/myGamesList', [
-            'watched' => $played_games,
-            'wishlisted' => $wishlisted
+        return view('/games/category', [
+            'top_games' => $top_games,
+            'trending_games' => $trending_games,
+            'new_releases' => $new_releases
         ]);
     }
 
