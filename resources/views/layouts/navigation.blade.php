@@ -13,11 +13,11 @@
 
             <div class="flex items-center justify-center w-1/3">
                 <ul class="flex items-center justify-center gap-2 text-sm">
-                    <li><a href="/category/anime" class="hover:font-bold transition-all">ANIME</a></li>
+                    <li><a href="/category/anime" class="text-xs lg:text-md lg:hover:font-bold transition-all">ANIME</a></li>
                     <li class="w-[6px] h-[6px] rounded-full bg-white"></li>
-                    <li><a href="/category/movies" class="hover:font-bold transition-all">MOVIES</a></li>
+                    <li><a href="/category/movies" class="text-xs lg:text-md lg:hover:font-bold transition-all">MOVIES</a></li>
                     <li class="w-[6px] h-[6px] rounded-full bg-white"></li>
-                    <li><a href="/category/games" class="hover:font-bold transition-all">GAMES</a></li>
+                    <li><a href="/category/games" class="text-xs lg:text-md lg:hover:font-bold transition-all">GAMES</a></li>
                 </ul>
             </div>
 
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div :class="{ 'absolute bg-gray-200 top-[80px] right-[10px]': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}

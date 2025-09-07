@@ -7,7 +7,7 @@
     </x-slot>
 
     <section>
-        <h1 class="text-center mb-12 text-animecolor text-[2rem] uppercase font-bold">Anime</h1>
+        <h1 class="text-center mb-12 text-animecolor text-[1.6rem] lg:text-[2rem] uppercase font-bold">Anime</h1>
         <div class="relative">
             <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="game-search-form">
                 <input id="anime-search-input" class="text-animecolor shadow-animecolor shadow-md bg-white rounded-[100px] h-[45px] pr-[50px] w-full" type="text" placeholder="search.." name="search" value="{{request('search')}}">
@@ -78,7 +78,7 @@
                 <div class="swiper-wrapper">
                     @foreach ($anime_characters as $character)
                     <div class="swiper-slide rounded-md">
-                        <div class="flex items-start">
+                        <div class="flex flex-col md:flex-row items-start">
                             <div class="flex pr-4 pb-4 gap-2">
                                 <img src="{{$character['images']['webp']['image_url'] ?? '-'}}" alt="" class="rounded-md max-w-[142px]">
                                 <div>

@@ -50,14 +50,14 @@
                 </ul>
             </div>
         <div>
-        <div class="media">
-            <img src="https://image.tmdb.org/t/p/w500{{ $movie['poster_path'] }}" alt="">
+        <div class="media flex flex-col lg:flex-row">
+            <img class="max-w-[250px] object-cover" src="https://image.tmdb.org/t/p/w500{{ $movie['poster_path'] }}" alt="">
             @if(isset($video) && $video)
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $video['key'] }}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe class="w-full h-auto min-h-[315px] max-w-[600px]" width="560" height="315" src="https://www.youtube.com/embed/{{ $video['key'] }}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             @endif
         </div>
         <div class="details">
-            <ul class="genres">
+            <ul class="genres flex flex-wrap items-center justify-start">
                 @if(isset($movie['genres']))
                     @foreach($movie['genres'] as $genre)
                         <li>{{ $genre['name'] ?? '-'}}</li>

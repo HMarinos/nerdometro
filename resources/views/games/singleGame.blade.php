@@ -49,14 +49,14 @@
                 </ul>
             </div>
         <div>
-        <div class="media">
-            <img src="{{ $game['background_image'] }}" alt="">
+        <div class="media flex flex-col lg:flex-row">
+            <img class="max-w-[250px] object-cover" src="{{ $game['background_image'] }}" alt="">
             @if(isset($game['trailer_url']))
-                <iframe width="560" height="315" src="{{ $game['trailer_url'] }}" title="Game Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe class="w-full h-auto min-h-[315px] max-w-[600px]" width="560" height="315" src="{{ $game['trailer_url'] }}" title="Game Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             @endif
         </div>
         <div class="details">
-            <ul class="genres">
+            <ul class="genres flex flex-wrap items-center justify-start">
                 @if(isset($game['genres']))
                     @foreach($game['genres'] as $genre)
                         <li>{{ is_array($genre) ? $genre['name'] : $genre }}</li>

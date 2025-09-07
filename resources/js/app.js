@@ -8,7 +8,7 @@ Alpine.start();
 
 const animeswiper1 = new Swiper(".animeswiper1", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -19,11 +19,29 @@ const animeswiper1 = new Swiper(".animeswiper1", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 const animeswiper2 = new Swiper(".animeswiper2", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -34,6 +52,24 @@ const animeswiper2 = new Swiper(".animeswiper2", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 const animeswipe3 = new Swiper(".animeswiper3", {
@@ -59,7 +95,7 @@ const animeswipe3 = new Swiper(".animeswiper3", {
 
 const movieswiper1 = new Swiper(".movieswiper1", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -70,11 +106,29 @@ const movieswiper1 = new Swiper(".movieswiper1", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 const movieswiper2 = new Swiper(".movieswiper2", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -85,12 +139,30 @@ const movieswiper2 = new Swiper(".movieswiper2", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 
 const gameswiper1 = new Swiper(".gameswiper1", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -101,11 +173,29 @@ const gameswiper1 = new Swiper(".gameswiper1", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 const gameswiper2 = new Swiper(".gameswiper2", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -116,11 +206,29 @@ const gameswiper2 = new Swiper(".gameswiper2", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });
 
 const gameswiper3 = new Swiper(".gameswiper3", {
     loop: true,
-    slidesPerView: 5,
+    slidesPerView: 1,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -131,4 +239,22 @@ const gameswiper3 = new Swiper(".gameswiper3", {
         clickable: true,
         dynamicBullets: true,
     },
+    breakpoints: {
+        520: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        700: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        860: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+    }
 });

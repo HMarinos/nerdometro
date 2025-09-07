@@ -7,7 +7,7 @@
     </x-slot>
 
     <section>
-        <h1 class="text-center mb-12 text-gamecolor text-[2rem] uppercase font-bold">Games</h1>
+        <h1 class="text-center mb-12 text-gamecolor text-[1.6rem] lg:text-[2rem] uppercase font-bold">Games</h1>
         <div class="relative">
             <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="game-search-form">
                 <input id="game-search-input" class="text-gamecolor shadow-gamecolor shadow-md bg-white rounded-[100px] h-[45px] pr-[50px] w-full" type="text" placeholder="search.." name="search" value="{{request('search')}}">

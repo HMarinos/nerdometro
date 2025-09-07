@@ -26,8 +26,8 @@
         <div class="container mx-auto px-4 py-8 max-w-[1600px]">
             <!-- Header -->
             <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-200 mb-2">My Lists</h1>
-            <p class="text-gray-400">Organize your entertainment library</p>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-200 mb-2">My Lists</h1>
+            <p class="text-sm sm:text-md text-gray-400">Organize your entertainment library</p>
             </div>
         
             <!-- Tab Navigation -->
@@ -66,10 +66,10 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($watched_anime) && count($watched_anime) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($watched_anime as $anime)
                                         <div>
-                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-1 md:gap-4 px-2 mb-2">
                                                 <div class="flex items-center gap-1 text-yellow-400 opacity-60">
                                                     <i class="fa-xs fa-solid fa-star "></i>
                                                     <div class="text-xs font-bold">{{$anime->rating ?? 'N/A'}}</div>
@@ -149,7 +149,7 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($wishlisted_anime) && count($wishlisted_anime) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($wishlisted_anime as $anime_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                                             <img src="{{$anime_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
@@ -186,10 +186,10 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($watched_movies) && count($watched_movies) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($watched_movies as $movie)
                                         <div>
-                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-1 md:gap-4 px-2 mb-2">
                                                 <div class="flex items-center gap-1 text-yellow-400 opacity-60">
                                                     <i class="fa-xs fa-solid fa-star "></i>
                                                     <div class="text-xs font-bold">{{$movie->rating ?? 'N/A'}}</div>
@@ -269,7 +269,7 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($wishlisted_movies) && count($wishlisted_movies) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($wishlisted_movies as $movie_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                                             <img src="{{$movie_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
@@ -306,10 +306,10 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($played_games) && count($played_games) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($played_games as $game)
                                         <div>
-                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-1 md:gap-4 px-2 mb-2">
                                                 <div class="flex items-center gap-1 text-yellow-400 opacity-60">
                                                     <i class="fa-xs fa-solid fa-star "></i>
                                                     <div class="text-xs font-bold">{{$game->rating ?? 'N/A'}}</div>
@@ -389,7 +389,7 @@
                         </h3>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($wishlisted_games) && count($wishlisted_games) > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
                                     @foreach ($wishlisted_games as $game_wish)
                                         <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
                                             <img src="{{$game_wish['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">

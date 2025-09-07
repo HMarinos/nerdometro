@@ -51,12 +51,12 @@
                 </ul>
             </div>
         <div>
-        <div class="media">
-            <img src="{{ $anime['images']['jpg']['image_url'] }}" alt="">
-            <iframe width="560" height="315" controls=0  src="{{$anime['trailer']['embed_url']}}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="media flex flex-col lg:flex-row">
+            <img class="max-w-[250px] object-cover" src="{{ $anime['images']['jpg']['image_url'] }}" alt="">
+            <iframe class="w-full h-auto min-h-[315px] max-w-[600px]" width="560" height="315" controls=0  src="{{$anime['trailer']['embed_url']}}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="details">
-            <ul class="genres">
+            <ul class="genres flex flex-wrap items-center justify-start">
                 @if(isset($anime['genres']))
                     @foreach($anime['genres'] as $genre)
                     <li>{{$genre['name'] ?? '-'}}</li>
