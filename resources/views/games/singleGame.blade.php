@@ -7,9 +7,10 @@
     </x-slot>
 
     <section class="single single-game">
+        @if($game && isset($game['id']))
         <div class="info">
             <div class="flex items-center justify-between">
-                <h1>{{ $game['name'] }}</h1>
+                <h1>{{ $game['name'] ?? '-'}}</h1>
                 <div class="actions flex items-center gap-4">
 
                     {{-- add to wishlist --}}
@@ -67,6 +68,14 @@
             </ul> --}}
             <div>{{ $game['description_raw'] ?? '' }}</div>
         </div>
+        @else
+            <div class="max-w-[800px] mx-auto flex items-center justify-center">
+                <div class="flex flex-col items-center justify-center">
+                    <div class="uppercase text-xl mb-4">Game not found</div>
+                    <a href="/category/games" class="underline text-center uppercase hover:text-gamecolor transition-all">go back</a>
+                </div>
+            </div>
+        @endif
     </section>
 
 </x-app-layout>

@@ -31,7 +31,7 @@
                                     <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
                                         src="{{ $global['images']['jpg']['large_image_url'] }}" alt="">
                                     <div class="title">
-                                        <span class="z-20">{{ $global['title'] }}</span>
+                                        <span class="z-20">{{ $global['title'] ?? '-' }}</span>
                                     </div>
                                 </a>
                             </div>
@@ -57,7 +57,7 @@
                                     <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all"
                                         src="{{ $airing['images']['jpg']['large_image_url'] }}" alt="">
                                     <div class="title">
-                                        <span class="z-20">{{ $airing['title'] }}</span>
+                                        <span class="z-20">{{ $airing['title'] ?? '-' }}</span>
                                     </div>
                                 </a>
                             </div>
@@ -80,21 +80,23 @@
                     <div class="swiper-slide rounded-md">
                         <div class="flex items-start">
                             <div class="flex pr-4 pb-4 gap-2">
-                                <img src="{{$character['images']['webp']['image_url']}}" alt="" class="rounded-md max-w-[142px]">
+                                <img src="{{$character['images']['webp']['image_url'] ?? '-'}}" alt="" class="rounded-md max-w-[142px]">
                                 <div>
                                     <div>
                                         <div class="">
-                                            <div class="text-animecolor uppercase mb-4 font-medium text-nowrap ">{{$character['name']}}</div>
+                                            <div class="text-animecolor uppercase mb-4 font-medium text-nowrap ">{{$character['name'] ?? '-'}}</div>
                                             <ul class="ml-1">
-                                                @foreach($character['nicknames'] as $nickname)
-                                                <li class="text-xs text-animecolor/90 mb-1">{{$nickname}}</li>
-                                                @endforeach
+                                                @if(isset($character['nicknames']))
+                                                    @foreach($character['nicknames'] as $nickname)
+                                                    <li class="text-xs text-animecolor/90 mb-1">{{$nickname ?? '-'}}</li>
+                                                    @endforeach
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-sm max-h-[250px] overflow-y-auto">{{$character['about']}}</div>
+                            <div class="text-sm max-h-[250px] overflow-y-auto">{{$character['about'] ?? '-'}}</div>
                         </div>
                     </div>
                     @endforeach

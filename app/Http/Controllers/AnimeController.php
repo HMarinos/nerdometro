@@ -64,7 +64,7 @@ class AnimeController extends Controller
         $animeId    = $validatedData['data_id'];
         $animeEpisodes = $validatedData['data_episodes'];
         $animeDuration = $validatedData['data_duration'];
-        $animeScore = $validatedData['data_score'];
+        $animeScore = round($validatedData['data_score'], 1);
 
         $durationMatch = [];
         preg_match('/\d+/', $animeDuration ?? '', $durationMatch);

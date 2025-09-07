@@ -30,7 +30,7 @@
                                 <a href="/movie/{{ $global['id'] }}">
                                     <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="https://image.tmdb.org/t/p/w500{{ $global['poster_path'] }}" alt="">
                                     <div class="title">
-                                        <span class="z-20">{{ $global['title'] }}</span>
+                                        <span class="z-20">{{ $global['title'] ?? '-'}}</span>
                                     </div>
                                 </a>
                             </div>
@@ -55,7 +55,7 @@
                                 <a href="/movie/{{ $airing['id'] }}">
                                     <img class="w-full h-auto rounded-[4px_4px_0_0] transition-all" src="https://image.tmdb.org/t/p/w500{{ $airing['poster_path'] }}" alt="">
                                     <div class="title">
-                                        <span class="z-20">{{ $airing['title'] }}</span>
+                                        <span class="z-20">{{ $airing['title'] ?? '-'}}</span>
                                     </div>
                                 </a>
                             </div>
@@ -84,16 +84,18 @@
                             <div class="absolute inset-0 p-4 pt-12 flex flex-col items-center bg-[rgba(0,0,0,0.8)] transition-all opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-hover:z-10">
                                 <div class="text-center mb-4 text-white">Known for</div>
                                 <div class="flex flex-wrap items-center justify-start gap-2">
-                                    @foreach($actor['known_for'] as $known)
-                                        <a href="/movie/{{ $known['id'] }}" class="cursor-pointer group/known">
-                                            <img class="rounded-md max-w-[80px] transition-transform group-hover/known:scale-90" src="https://image.tmdb.org/t/p/w200{{ $known['poster_path'] }}" alt="">
-                                        </a>
-                                    @endforeach
+                                    @if(isset($actor['known_for']))
+                                        @foreach($actor['known_for'] as $known)
+                                            <a href="/movie/{{ $known['id'] }}" class="cursor-pointer group/known">
+                                                <img class="rounded-md max-w-[80px] transition-transform group-hover/known:scale-90" src="https://image.tmdb.org/t/p/w200{{ $known['poster_path'] }}" alt="">
+                                            </a>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="text-sm mx-auto text-center mt-2 text-white">
-                            {{ $actor['name'] }}
+                            {{ $actor['name'] ?? '-'}}
                         </div>
                     </div>
                 </div>

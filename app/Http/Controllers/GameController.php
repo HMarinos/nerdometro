@@ -58,7 +58,7 @@ class GameController extends Controller
         $gameTitle = $validatedData['data_title'];
         $gameImage = $validatedData['data_image'];
         $gameId = $validatedData['data_id'];
-        $gameScore = $validatedData['data_score'] * 2;
+        $gameScore = round($validatedData['data_score'] * 2);
 
         // Extract only genre names
         $rawGenres = json_decode($validatedData['data_genres'] ?? '[]', true);

@@ -38,7 +38,9 @@ class MovieController extends Controller
             'api_key' => $apiKey
         ])->json();
 
-        $objects = $response_video['results'];
+        
+
+        $objects = $response_video['results'] ?? [];
         $firstTrailerObject = null;
         foreach ($objects as $object) {
             if ($object['type'] === "Trailer") {
@@ -76,7 +78,7 @@ class MovieController extends Controller
         $movieImage = $validateData['data_image'];
         $movieId = $validateData['data_id'];
         $movieDuration = $validateData['data_duration'];
-        $movieScore = $validateData['data_score'];
+        $movieScore = round($validateData['data_score'], 1);
 
 
         $rawGenres = json_decode($validateData['data_genres'] ?? '[]', true);
