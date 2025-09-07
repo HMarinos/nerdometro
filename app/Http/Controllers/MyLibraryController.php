@@ -11,27 +11,27 @@ class MyLibraryController extends Controller
     public function index(){
 
         //anime
-        $watched_anime = Anime::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+        $watched_anime = Auth::user()
+            ->anime()
+            ->get();
 
         $wishlisted_anime = Anime::whereHas('wishlist', function($query) {
             $query->where('user_id', Auth::id());
         })->get();
 
         //movies
-        $watched_movies = Movie::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+        $watched_movies = Auth::user()
+            ->movie()
+            ->get();
 
         $wishlisted_movies = Movie::whereHas('wishlist', function($query) {
             $query->where('user_id', Auth::id());
         })->get();
 
         //games
-        $played_games = Game::whereHas('users', function($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
+        $played_games = Auth::user()
+            ->game()
+            ->get();
 
         $wishlisted_games = Game::whereHas('wishlist', function($query) {
             $query->where('user_id', Auth::id());

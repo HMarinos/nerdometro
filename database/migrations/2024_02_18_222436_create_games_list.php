@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('genres')->nullable();
             $table->string('date')->default('');
             $table->string('image_url')->default('');
+            $table->string('rating')->default('');
             $table->string('db_id')->unique()->default('');
         });
     }

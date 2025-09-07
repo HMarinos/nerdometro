@@ -19,11 +19,15 @@ class Movie extends Model
         'date',
         'image_url',
         'db_id',
-        'duration'
+        'duration',
+        'rating'
     ];
 
-    public function users(){
-        return $this->belongsToMany(User::class,'movie_user');
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'movie_user', 'movie_id', 'user_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
 
     public function wishlist(){

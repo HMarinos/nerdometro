@@ -43,8 +43,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function anime(){
-        return $this->belongsToMany(Anime::class,'anime_user');
+    public function anime()
+    {
+        return $this->belongsToMany(Anime::class, 'anime_user', 'user_id', 'anime_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
 
     public function animeWishlist(){
@@ -59,11 +62,17 @@ class User extends Authenticatable
         return $this->belongsToMany(Game::class,'game_user_wishlist');
     }
 
-    public function movie(){
-        return $this->belongsToMany(Movie::class,'movie_user');
+    public function movie()
+    {
+        return $this->belongsToMany(Movie::class, 'movie_user', 'user_id', 'movie_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
     
-    public function game(){
-        return $this->belongsToMany(Game::class,'game_user');
+    public function game()
+    {
+        return $this->belongsToMany(Game::class, 'game_user', 'user_id', 'game_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
 }

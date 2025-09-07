@@ -15,11 +15,15 @@ class Game extends Model
         'genres',
         'date',
         'image_url',
-        'db_id'
+        'db_id',
+        'rating'
     ];
 
-    public function users(){
-        return $this->belongsToMany(User::class,'game_user');
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'game_user', 'game_id', 'user_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
 
     public function wishlist(){

@@ -31,6 +31,7 @@
                         <input type="hidden" name="data_genres" value='@json($anime["genres"])'>
                         <input type="hidden" name="data_episodes" value="{{ $anime['episodes'] }}">
                         <input type="hidden" name="data_duration" value="{{ $anime['duration'] }}">
+                        <input type="hidden" name="data_score" value="{{ $anime['score'] }}">
                         <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
                             <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
                         </button>

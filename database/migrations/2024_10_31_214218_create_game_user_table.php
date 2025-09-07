@@ -17,6 +17,9 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('game_id')->references('id')->on('games_list')->onDelete('cascade');
+
+            $table->unsignedTinyInteger('user_rating')->nullable();
+
         });
     }
 

@@ -20,11 +20,15 @@ class Anime extends Model
         'image_url',
         'db_id',
         'duration',
-        'episodes'
+        'episodes',
+        'rating'
     ];
 
-    public function users(){
-        return $this->belongsToMany(User::class,'anime_user');
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'anime_user', 'anime_id', 'user_id')
+                    ->withPivot('user_rating')
+                    ->withTimestamps();
     }
 
     public function wishlist(){

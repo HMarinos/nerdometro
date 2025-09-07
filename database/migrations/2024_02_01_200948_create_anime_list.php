@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('duration')->nullable();
             $table->string('date')->default('');
             $table->string('image_url')->default('');
+            $table->string('rating')->default('');
             $table->string('db_id')->unique()->default('');
         });
     }

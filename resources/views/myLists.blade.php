@@ -8,18 +8,19 @@
     <script>
         document.addEventListener("alpine:init", () => {
             Alpine.data("tabsApp", () => ({
-                activeTab: 'anime',
+                // Use session('active_tab') if available, otherwise default to 'anime'
+                activeTab: "{{ session('active_tab', 'anime') }}",
                 tabs: [
-                { id: 'anime', name: 'Anime'},
-                { id: 'movies', name: 'Movies'},
-                { id: 'games', name: 'Games' },
+                    { id: 'anime', name: 'Anime' },
+                    { id: 'movies', name: 'Movies' },
+                    { id: 'games', name: 'Games' },
                 ],
                 setTab(id) {
-                this.activeTab = id;
+                    this.activeTab = id;
                 },
             }));
         });
-  </script>
+    </script>
 
     <div class="min-h-screen" x-data="tabsApp">
         <div class="container mx-auto px-4 py-8 max-w-[1600px]">
@@ -67,18 +68,71 @@
                             @if(isset($watched_anime) && count($watched_anime) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
                                     @foreach ($watched_anime as $anime)
-                                        <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$anime['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
-                                            <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$anime['db_id']}}">{{$anime['title']}}</a>
+                                        <div>
+                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                                <div class="flex items-center gap-1 text-yellow-400 opacity-60">
+                                                    <i class="fa-xs fa-solid fa-star "></i>
+                                                    <div class="text-xs font-bold">{{$anime->rating ?? 'N/A'}}</div>
+                                                </div>
+                                                <div>
+                                                    @php
+                                                    $ratingLabels = [
+                                                        0    => '0',
+                                                        0.5  => '0.5',
+                                                        1    => '1',
+                                                        1.5  => '1.5',
+                                                        2    => '2',
+                                                        2.5  => '2.5',
+                                                        3    => '3',
+                                                        3.5  => '3.5',
+                                                        4    => '4',
+                                                        4.5  => '4.5',
+                                                        5    => '5',
+                                                        5.5  => '5.5',
+                                                        6    => '6',
+                                                        6.5  => '6.5',
+                                                        7    => '7',
+                                                        7.5  => '7.5',
+                                                        8    => '8',
+                                                        8.5  => '8.5',
+                                                        9    => '9',
+                                                        9.5  => '9.5',
+                                                        10   => '10',
+                                                    ];
+                                                    @endphp
+                                                    <div class="flex gap-1 items-center">
+                                                        <span class="text-gray-200 text-xs">My rating</span>
+                                                        <form action="{{ route('anime.updateRating', $anime->id) }}" method="POST" class="m-0">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <input type="hidden" name="active_tab" value="anime">
+                                                            <select name="user_rating"
+                                                                class="rounded-md border border-gray-600 bg-gray-800 text-gray-200 py-1 text-xs focus:border-purple-500 focus:ring-purple-500 cursor-pointer max-w-[85px]"
+                                                                onchange="this.form.submit()">
+                                                                <option value="">N/A</option>
+                                                                @foreach ($ratingLabels as $value => $label)
+                                                                    <option value="{{ $value }}" {{ $anime->pivot->user_rating === $value ? 'selected' : '' }}>
+                                                                        {{ $label }}⭐
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <form action="{{route('anime.delete',$anime->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
-                                            </form>
-                                        </li>
+                                            <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                                                <img src="{{$anime['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                                <div class="title decoration-[rebeccapurple] group-hover:underline">
+                                                    <a href="/anime/{{$anime['db_id']}}">{{$anime['title']}}</a>
+                                                </div>
+                                                <form action="{{route('anime.delete',$anime->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="active_tab" value="anime">
+                                                    <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
+                                                </form>
+                                            </li>
+                                        </div>
                                     @endforeach
                                 </div>
                             @else
@@ -106,6 +160,7 @@
                                             <form action="{{route('anime.remove.wishlist',$anime_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                <input type="hidden" name="active_tab" value="anime">
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                                             </form>
                                         </li>
@@ -133,18 +188,71 @@
                             @if(isset($watched_movies) && count($watched_movies) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
                                     @foreach ($watched_movies as $movie)
-                                        <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$movie['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
-                                            <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$movie['db_id']}}">{{$movie['title']}}</a>
+                                        <div>
+                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                                <div class="flex items-center gap-1 text-yellow-400 opacity-60">
+                                                    <i class="fa-xs fa-solid fa-star "></i>
+                                                    <div class="text-xs font-bold">{{$movie->rating ?? 'N/A'}}</div>
+                                                </div>
+                                                <div>
+                                                    @php
+                                                    $ratingLabels = [
+                                                        0    => '0',
+                                                        0.5  => '0.5',
+                                                        1    => '1',
+                                                        1.5  => '1.5',
+                                                        2    => '2',
+                                                        2.5  => '2.5',
+                                                        3    => '3',
+                                                        3.5  => '3.5',
+                                                        4    => '4',
+                                                        4.5  => '4.5',
+                                                        5    => '5',
+                                                        5.5  => '5.5',
+                                                        6    => '6',
+                                                        6.5  => '6.5',
+                                                        7    => '7',
+                                                        7.5  => '7.5',
+                                                        8    => '8',
+                                                        8.5  => '8.5',
+                                                        9    => '9',
+                                                        9.5  => '9.5',
+                                                        10   => '10',
+                                                    ];
+                                                    @endphp
+                                                    <div class="flex gap-1 items-center">
+                                                        <span class="text-gray-200 text-xs">My rating</span>
+                                                        <form action="{{ route('movie.updateRating', $movie->id) }}" method="POST" class="m-0">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <input type="hidden" name="active_tab" value="movies">
+                                                            <select name="user_rating"
+                                                                class="rounded-md border border-gray-600 bg-gray-800 text-gray-200 py-1 text-xs focus:border-purple-500 focus:ring-purple-500 cursor-pointer max-w-[85px]"
+                                                                onchange="this.form.submit()">
+                                                                <option value="">N/A</option>
+                                                                @foreach ($ratingLabels as $value => $label)
+                                                                    <option value="{{ $value }}" {{ $movie->pivot->user_rating === $value ? 'selected' : '' }}>
+                                                                        {{ $label }}⭐
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <form action="{{route('movie.delete',$movie->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
-                                            </form>
-                                        </li>
+                                            <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                                                <img src="{{$movie['image_url']}}" alt="movie image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                                <div class="title decoration-[rebeccapurple] group-hover:underline">
+                                                    <a href="/movie/{{$movie['db_id']}}">{{$movie['title']}}</a>
+                                                </div>
+                                                <form action="{{route('movie.delete',$movie->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="active_tab" value="movies">
+                                                    <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
+                                                </form>
+                                            </li>
+                                        </div>
                                     @endforeach
                                 </div>
                             @else
@@ -172,6 +280,7 @@
                                             <form action="{{route('movie.remove.wishlist',$movie_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                <input type="hidden" name="active_tab" value="movies">
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                                             </form>
                                         </li>
@@ -199,18 +308,71 @@
                             @if(isset($played_games) && count($played_games) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
                                     @foreach ($played_games as $game)
-                                        <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
-                                            <img src="{{$game['image_url']}}" alt="anime image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
-                                            <div class="title decoration-[rebeccapurple] group-hover:underline">
-                                                <a href="/anime/{{$game['db_id']}}">{{$game['title']}}</a>
+                                        <div>
+                                            <div class="flex items-center justify-between gap-4 px-2 mb-2">
+                                                <div class="flex items-center gap-1 text-yellow-400 opacity-60">
+                                                    <i class="fa-xs fa-solid fa-star "></i>
+                                                    <div class="text-xs font-bold">{{$game->rating ?? 'N/A'}}</div>
+                                                </div>
+                                                <div>
+                                                    @php
+                                                    $ratingLabels = [
+                                                        0    => '0',
+                                                        0.5  => '0.5',
+                                                        1    => '1',
+                                                        1.5  => '1.5',
+                                                        2    => '2',
+                                                        2.5  => '2.5',
+                                                        3    => '3',
+                                                        3.5  => '3.5',
+                                                        4    => '4',
+                                                        4.5  => '4.5',
+                                                        5    => '5',
+                                                        5.5  => '5.5',
+                                                        6    => '6',
+                                                        6.5  => '6.5',
+                                                        7    => '7',
+                                                        7.5  => '7.5',
+                                                        8    => '8',
+                                                        8.5  => '8.5',
+                                                        9    => '9',
+                                                        9.5  => '9.5',
+                                                        10   => '10',
+                                                    ];
+                                                    @endphp
+                                                    <div class="flex gap-1 items-center">
+                                                        <span class="text-gray-200 text-xs">My rating</span>
+                                                        <form action="{{ route('game.updateRating', $game->id) }}" method="POST" class="m-0">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <input type="hidden" name="active_tab" value="games">
+                                                            <select name="user_rating"
+                                                                class="rounded-md border border-gray-600 bg-gray-800 text-gray-200 py-1 text-xs focus:border-purple-500 focus:ring-purple-500 cursor-pointer max-w-[85px]"
+                                                                onchange="this.form.submit()">
+                                                                <option value="">N/A</option>
+                                                                @foreach ($ratingLabels as $value => $label)
+                                                                    <option value="{{ $value }}" {{ $game->pivot->user_rating === $value ? 'selected' : '' }}>
+                                                                        {{ $label }}⭐
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <form action="{{route('game.delete',$game->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
-                                            </form>
-                                        </li>
+                                            <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                                                <img src="{{$game['image_url']}}" alt="game image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
+                                                <div class="title decoration-[rebeccapurple] group-hover:underline">
+                                                    <a href="/game/{{$game['db_id']}}">{{$game['title']}}</a>
+                                                </div>
+                                                <form action="{{route('game.delete',$game->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="active_tab" value="games">
+                                                    <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
+                                                </form>
+                                            </li>
+                                        </div>
                                     @endforeach
                                 </div>
                             @else
@@ -238,6 +400,7 @@
                                             <form action="{{route('game.remove.wishlist',$game_wish->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                <input type="hidden" name="active_tab" value="games">
                                                 <button type="submit" class="w-[30px] h-[30px] absolute top-[10px] left-[10px] rounded-full flex justify-center items-center border border-red-600 bg-red-600 z-[10] opacity-0 group-hover:opacity-100 transition-all"><i class="fa-solid fa-xmark"></i></button>
                                             </form>
                                         </li>

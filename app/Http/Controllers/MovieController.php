@@ -26,7 +26,6 @@ class MovieController extends Controller
 
     }
 
-
     function showSingleMovie($id){
         $apiKey = '05abd598284193009c38291a6823dd0c';
         $response = Http::get('https://api.themoviedb.org/3/movie/'. $id, [
@@ -53,6 +52,7 @@ class MovieController extends Controller
         $already_added = $user && $movie_id ? $user->movie()->where('movie_id', $movie_id)->exists() : false;
         $in_wishlist = $user && $movie_id ? $user->movieWishlist()->where('movie_id', $movie_id)->exists() : false;
 
+
         return view('/movies/singleMovie', [
             'movie' => $response,
             'video' => $firstTrailerObject,
@@ -68,13 +68,16 @@ class MovieController extends Controller
             'data_image' => 'required|string|max:255',
             'data_id'    => 'required',
             'data_genres' => 'nullable|string',
-            'data_duration' => 'nullable|integer'
+            'data_duration' => 'nullable|integer',
+            'data_score' => 'nullable'
         ]);
 
         $movieTitle = $validateData['data_title'];
         $movieImage = $validateData['data_image'];
         $movieId = $validateData['data_id'];
         $movieDuration = $validateData['data_duration'];
+        $movieScore = $validateData['data_score'];
+
 
         $rawGenres = json_decode($validateData['data_genres'] ?? '[]', true);
 
@@ -103,7 +106,8 @@ class MovieController extends Controller
                 'title'     => $movieTitle,
                 'image_url' => $movieImage,
                 'genres'    => $genresJson, 
-                'duration'  => $movieDuration
+                'duration'  => $movieDuration,
+                'rating'    => $movieScore
             ]
         );
 
@@ -172,7 +176,7 @@ class MovieController extends Controller
         return back();
     }
 
-    public function removeMovieWishlist($id)
+    public function removeMovieWishlist(Request $request, $id)
     {
         $user = Auth::user();
         $movie = Movie::findOrFail($id);
@@ -184,33 +188,36 @@ class MovieController extends Controller
             session()->flash('status', 'Movie not found in your wishlist.');
         }
 
-        return back();
+        return redirect()->back()->with('status', 'Your list has been updated..')->with('active_tab', $request->active_tab);    
+
     }
 
-    public function deleteMovie($id){
+    public function updateRating(Request $request, $id)
+    {
+        $request->validate([
+            'user_rating' => 'nullable',
+        ]);
+
+        $user = Auth::user();
+        $movie = Movie::findOrFail($id);
+
+        // Update pivot table (movie_user)
+        $user->movie()->updateExistingPivot($movie->id, [
+            'user_rating' => $request->user_rating,
+        ]);
+
+        return redirect()->back()->with('status', 'Your rating has been updated.')->with('active_tab', $request->active_tab);    
+    }
+
+    public function deleteMovie(Request $request, $id){
 
         $movie = Movie::findOrFail($id);
         $user = Auth::user();
 
         $user->movie()->detach($movie->id);
 
-        return redirect()->back()->with('success', 'Movie deleted successfully!');
+        return redirect()->back()->with('success', 'Movie deleted successfully!')->with('active_tab', $request->active_tab);
 
     }
 
-    // public function showList() {
-
-    //     $watched_movies = Movie::whereHas('users', function($query) {
-    //         $query->where('user_id', Auth::id());
-    //     })->get();
-
-    //     $wishlisted = Movie::whereHas('wishlist', function($query) {
-    //         $query->where('user_id', Auth::id());
-    //     })->get();
-
-    //     return view('movies/myMovieList', [
-    //         'watched' => $watched_movies,
-    //         'wishlisted' => $wishlisted
-    //     ]);
-    // }
 }

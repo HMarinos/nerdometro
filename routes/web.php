@@ -47,10 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/game-add-wishlist', [GameController::class, 'addGameWishlist'])->name('game.add.wishlist');
     Route::delete('/game-remove-wishlist/{id}', [GameController::class, 'removeGameWishlist'])->name('game.remove.wishlist');
 
+    Route::patch('/anime/{id}/rating', [AnimeController::class, 'updateRating'])->name('anime.updateRating');
+    Route::patch('/movie/{id}/rating', [MovieController::class, 'updateRating'])->name('movie.updateRating');
+    Route::patch('/game/{id}/rating', [GameController::class, 'updateRating'])->name('game.updateRating');
+
 
     Route::get('/category/anime', [AnimeController::class, 'category'])->name('anime.category');
     Route::get('/category/movies', [MovieController::class, 'category'])->name('movies.category');
-    // Route::get('/category/games', [GameController::class, 'showList'])->name('games.list');
     Route::get('/category/games', [GameController::class, 'category'])->name('games.category');
 
 

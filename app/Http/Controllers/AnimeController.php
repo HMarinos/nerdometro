@@ -20,8 +20,6 @@ class AnimeController extends Controller
         $anime_airing = $mediaController-> topAnimeAiring();
         $anime_characters = $mediaController-> topAnimeCharacters();
 
-        // dump($anime_characters);
-
         return view('/anime/category',[
             'anime_global' => $anime_global,
             'anime_airing' => $anime_airing,
@@ -57,7 +55,8 @@ class AnimeController extends Controller
             'data_id'     => 'required',
             'data_genres' => 'nullable|string',
             'data_episodes' => 'nullable|integer',
-            'data_duration' => 'nullable|string'
+            'data_duration' => 'nullable|string',
+            'data_score' => 'nullable'
         ]);
 
         $animeTitle = $validatedData['data_title'];
@@ -65,6 +64,7 @@ class AnimeController extends Controller
         $animeId    = $validatedData['data_id'];
         $animeEpisodes = $validatedData['data_episodes'];
         $animeDuration = $validatedData['data_duration'];
+        $animeScore = $validatedData['data_score'];
 
         $durationMatch = [];
         preg_match('/\d+/', $animeDuration ?? '', $durationMatch);
@@ -92,7 +92,8 @@ class AnimeController extends Controller
                 'image_url' => $animeImage,
                 'genres'    => $genresJson,
                 'episodes'  => $animeEpisodes,
-                'duration'  => $animeDurationMinutes
+                'duration'  => $animeDurationMinutes,
+                'rating'    => $animeScore
             ]
         );
 
@@ -161,7 +162,7 @@ class AnimeController extends Controller
         return back();
     }
 
-    public function removeAnimeWishlist($id) {
+    public function removeAnimeWishlist(Reqeust $request, $id) {
         $user = Auth::user();
         $anime = Anime::findOrFail($id);
 
@@ -172,33 +173,35 @@ class AnimeController extends Controller
             session()->flash('status', 'Anime not found in your wishlist.');
         }
 
-        return back();
+        return redirect()->back()->with('status', 'Your list has been updated..')->with('active_tab', $request->active_tab);    
     }
 
-    // public function showList() {
-
-    //     $watched_anime = Anime::whereHas('users', function($query) {
-    //         $query->where('user_id', Auth::id());
-    //     })->get();
-
-    //     $wishlisted = Anime::whereHas('wishlist', function($query) {
-    //         $query->where('user_id', Auth::id());
-    //     })->get();
-
-
-    //     return view('anime/myAnimeList',[
-    //         'watched' => $watched_anime,
-    //         'wishlisted' => $wishlisted
-    //     ]);
-    // }
     
-    public function deleteAnime($id){
+    public function updateRating(Request $request, $id)
+    {
+        $request->validate([
+            'user_rating' => 'nullable',
+        ]);
+
+        $user = Auth::user();
+        $anime = Anime::findOrFail($id);
+
+        // Update pivot table (anime_user)
+        $user->anime()->updateExistingPivot($anime->id, [
+            'user_rating' => $request->user_rating,
+        ]);
+
+        return redirect()->back()->with('status', 'Your rating has been updated.')->with('active_tab', $request->active_tab);    
+    }
+
+    
+    public function deleteAnime(Request $reqeust ,$id){
 
         $anime = Anime::findOrFail($id);
         $user = auth()->user(); 
 
         $user->anime()->detach($anime->id);
 
-        return redirect()->route('my-lists')->with('success', 'Anime deleted successfully!');
+        return redirect()->route('my-lists')->with('success', 'Anime deleted successfully!')->with('active_tab', $request->active_tab);
     }
 }

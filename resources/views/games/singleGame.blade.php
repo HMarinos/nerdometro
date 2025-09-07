@@ -29,6 +29,7 @@
                         <input type="hidden" name="data_id" value="{{ $game['id'] }}">
                         <input type="hidden" name="data_image" value="{{ $game['background_image'] }}">
                         <input type="hidden" name="data_genres" value='@json($game["genres"])'>
+                        <input type="hidden" name="data_score" value='@json($game["rating"])'>
                         <button title="{{ $exists ? 'Remove from Played' : 'Add to Played' }}">
                             <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
                         </button>
