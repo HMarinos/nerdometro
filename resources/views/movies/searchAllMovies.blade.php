@@ -23,43 +23,13 @@
             Seeing results for: {{ $query }}
         </div>
         @if(isset($results) && $results)
-        <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+            <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 cont">
             @foreach ($results as $item)
-                <li class="rounded-lg border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden">
+                    <li class="rounded-lg item border relative cursor-pointer flex flex-col justify-between items-center group overflow-hidden bg-[rgba(255,255,255,0.05)]">
                     <img src="{{$item['image_url']}}" alt="movie image" class="w-full h-auto rounded-[4px_4px_0_0] transition-all">
                     <div class="title decoration-[rebeccapurple] group-hover:underline">
                         <a href="/movie/{{$item['db_id']}}">{{$item['title']}}</a>
                     </div>
-
-                    @php
-                        $in_wishlist = in_array($item['db_id'], $userWishlistIds ?? []);
-                    @endphp
-                    <form action="{{ route('movie.add.wishlist') }}" method="POST" class="flex items-center absolute top-[10px] left-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
-                        @csrf
-                        <input type="hidden" name="data_title" value="{{ $item['title'] }}">
-                        <input type="hidden" name="data_id" value="{{ $item['db_id'] }}">
-                        <input type="hidden" name="data_image" value="{{ $item['image_url'] }}">
-                        <button type="submit" title="{{ $in_wishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}" class="focus:outline-none">
-                            <i class="fa-solid fa-eye text-lg" style="color: {{ $in_wishlist ? 'orange' : 'inherit' }}"></i>
-                        </button>
-                    </form>
-
-                    @php
-                        $exists = in_array($item['db_id'], $userWatchedDbIds ?? []);
-                    @endphp
-
-                    <form action="{{ route('movie.add') }}" method="POST" class="flex items-center m-0 absolute top-[10px] right-[10px] z-[10] bg-[rgba(0,0,0,0.2)] rounded-full p-1">
-                        @csrf
-                        <input type="hidden" name="data_title" value="{{ $item['title'] }}">
-                        <input type="hidden" name="data_id" value="{{ $item['db_id'] }}">
-                        <input type="hidden" name="data_image" value="{{ $item['image_url'] }}">
-                        <input type="hidden" name="data_genres" value='@json($item["genres"])'>
-                        <input type="hidden" name="data_duration" value="{{ $item['runtime'] }}">
-                        <button type="submit" title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
-                            <i class="fa-solid fa-circle-check text-lg" style="color:{{ $exists ? 'green' : '' }}"></i>
-                        </button>
-                    </form>
-
                 </li>
             @endforeach
         </ul>

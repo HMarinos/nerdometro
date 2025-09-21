@@ -60,10 +60,38 @@
                 <div class="space-y-8">
                     <!-- My Completed -->
                     <div class="bg-transparent rounded-xl shadow-sm p-1">
-                        <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        My Completed
-                        </h3>
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            My Completed
+                            </h3>
+                            <form method="GET" class="mb-4 flex justify-end">
+                                <input type="hidden" name="active_tab" value="anime">
+                                <label for="anime_sort" class="mr-2 text-gray-300 text-sm hidden lg:block">Sort by:</label>
+                                <select name="anime_sort" id="anime_sort" class="rounded border-gray-600 bg-gray-800 text-gray-200 text-xs py-1"
+                                    onchange="this.form.submit()">
+                                    <option value="alphabetical" {{ $animeSort == 'alphabetical' ? 'selected' : '' }}>A-Z</option>
+                                    <option value="user_rating" {{ $animeSort == 'user_rating' ? 'selected' : '' }}>My Rating</option>
+                                    <option value="rating" {{ $animeSort == 'rating' ? 'selected' : '' }}>API Rating</option>
+                                </select>
+                                <input type="hidden" name="anime_order" id="anime_order" value="{{ $animeOrder }}">
+                                <button type="button"
+                                    onclick="
+                                        let orderInput = this.form.querySelector('#anime_order');
+                                        orderInput.value = orderInput.value === 'asc' ? 'desc' : 'asc';
+                                        this.form.submit();
+                                    "
+                                    class="ml-2 text-gray-300 hover:text-white transition"
+                                    title="Toggle order"
+                                >
+                                    @if($animeOrder === 'asc')
+                                        <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                    @else
+                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </div>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($watched_anime) && count($watched_anime) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
@@ -180,10 +208,38 @@
                 <div class="space-y-8">
                     <!-- My Completed -->
                     <div class="bg-transparent rounded-xl shadow-sm p-1">
-                        <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        My Completed
-                        </h3>
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            My Completed
+                            </h3>
+                            <form method="GET" class="mb-4 flex justify-end">
+                                <input type="hidden" name="active_tab" value="movies">
+                                <label for="movie_sort" class="mr-2 text-gray-300 text-sm hidden lg:block">Sort by:</label>
+                                <select name="movie_sort" id="movie_sort" class="rounded border-gray-600 bg-gray-800 text-gray-200 text-xs py-1"
+                                    onchange="this.form.submit()">
+                                    <option value="alphabetical" {{ $movieSort == 'alphabetical' ? 'selected' : '' }}>A-Z</option>
+                                    <option value="user_rating" {{ $movieSort == 'user_rating' ? 'selected' : '' }}>My Rating</option>
+                                    <option value="rating" {{ $movieSort == 'rating' ? 'selected' : '' }}>API Rating</option>
+                                </select>
+                                <input type="hidden" name="movie_order" id="movie_order" value="{{ $movieOrder }}">
+                                <button type="button"
+                                    onclick="
+                                        let orderInput = this.form.querySelector('#movie_order');
+                                        orderInput.value = orderInput.value === 'asc' ? 'desc' : 'asc';
+                                        this.form.submit();
+                                    "
+                                    class="ml-2 text-gray-300 hover:text-white transition"
+                                    title="Toggle order"
+                                >
+                                    @if($movieOrder === 'asc')
+                                        <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                    @else
+                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </div>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($watched_movies) && count($watched_movies) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">
@@ -300,10 +356,38 @@
                 <div class="space-y-8">
                     {{-- My Completed --}}
                     <div class="bg-transparent rounded-xl shadow-sm p-1">
-                        <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                        My Completed
-                        </h3>
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            My Completed
+                            </h3>
+                            <form method="GET" class="mb-4 flex justify-end">
+                                <input type="hidden" name="active_tab" value="games">
+                                <label for="game_sort" class="mr-2 text-gray-300 text-sm hidden lg:block">Sort by:</label>
+                                <select name="game_sort" id="game_sort" class="rounded border-gray-600 bg-gray-800 text-gray-200 text-xs py-1"
+                                    onchange="this.form.submit()">
+                                    <option value="alphabetical" {{ $gameSort == 'alphabetical' ? 'selected' : '' }}>A-Z</option>
+                                    <option value="user_rating" {{ $gameSort == 'user_rating' ? 'selected' : '' }}>My Rating</option>
+                                    <option value="rating" {{ $gameSort == 'rating' ? 'selected' : '' }}>API Rating</option>
+                                </select>
+                                <input type="hidden" name="game_order" id="game_order" value="{{ $gameOrder }}">
+                                <button type="button"
+                                    onclick="
+                                        let orderInput = this.form.querySelector('#game_order');
+                                        orderInput.value = orderInput.value === 'asc' ? 'desc' : 'asc';
+                                        this.form.submit();
+                                    "
+                                    class="ml-2 text-gray-300 hover:text-white transition"
+                                    title="Toggle order"
+                                >
+                                    @if($gameOrder === 'asc')
+                                        <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                    @else
+                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </div>
                         <div class="bg-[rgba(255,255,255,0.05)] rounded-lg p-4 text-center tabcontent anime">
                             @if(isset($played_games) && count($played_games) > 0)
                                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 cont">

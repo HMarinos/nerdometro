@@ -195,7 +195,7 @@ class AnimeController extends Controller
     }
 
     
-    public function deleteAnime(Request $reqeust ,$id){
+    public function deleteAnime(Request $request ,$id){
 
         $anime = Anime::findOrFail($id);
         $user = auth()->user(); 

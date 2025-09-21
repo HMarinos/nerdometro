@@ -19,8 +19,9 @@
                         <input type="hidden" name="data_title" value="{{ $anime['title'] }}">
                         <input type="hidden" name="data_id" value="{{ $anime['mal_id'] }}">
                         <input type="hidden" name="data_image" value="{{ $anime['images']['jpg']['image_url'] }}">
-                        <button title="{{ $in_wishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}">
-                            <i style="color:{{ $in_wishlist ? 'orange' : '' }}" class="fa-solid fa-eye text-lg"></i>
+                        <button title="{{ $in_wishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}" class="border py-1 px-2 sm:py-2 sm:px-4 rounded-md flex items-center justify-center gap-2 hover:bg-yellow-800 transition-all {{ $in_wishlist ? 'bg-yellow-600 border-yellow-600' : 'border-white' }}">
+                            <i class="fa-solid fa-eye text-sm sm:text-lg"></i>
+                            <div class="hidden sm:block">wishlist</div>
                         </button>
                     </form>   
                     {{-- add anime --}}
@@ -33,8 +34,9 @@
                         <input type="hidden" name="data_episodes" value="{{ $anime['episodes'] }}">
                         <input type="hidden" name="data_duration" value="{{ $anime['duration'] }}">
                         <input type="hidden" name="data_score" value="{{ $anime['score'] }}">
-                        <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}">
-                            <i style="color:{{ $exists ? 'green' : '' }}" class="fa-solid fa-circle-check text-lg"></i>
+                        <button title="{{ $exists ? 'Remove from Watched' : 'Add to Watched' }}" class="border py-1 px-2 sm:py-2 sm:px-4 rounded-md flex items-center justify-center gap-2 hover:bg-green-800 transition-all {{ $exists ? 'bg-green-600 border-green-600' : 'border-white' }}">
+                            <i class="fa-solid fa-circle-check text-sm sm:text-lg"></i>
+                            <div class="hidden sm:block">completed</div>
                         </button>
                     </form>         
 
