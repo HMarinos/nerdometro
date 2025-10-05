@@ -8,13 +8,14 @@
 
     <section>
         <h1 class="text-center mb-16">All results</h1>
-        <form class="text-center" method="GET" action="#" id="game-search-form">
-            <input id="game-search-input" class="text-[rebeccapurple] shadow-[rebeccapurple] shadow-md bg-white rounded-[100px] h-[45px] pr-[50px]" type="text" placeholder="search.." name="search" value="{{request('search')}}"> 
-            <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.2)] w-[45px] rounded-full scale-[0.8] group hover:bg-[rebeccapurple] transition-all"><i class="fa-solid fa-magnifying-glass text-[rebeccapurple] group-hover:text-white transition-all"></i></button>
-        </form>
-        @csrf
-
-        <div id="results" class="max-w-[400px] mx-auto flex flex-col gap-2 max-h-[350px] overflow-auto">
+        <div class="relative">
+            <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="game-search-form">
+                <input id="game-search-input" class="text-gamecolor shadow-gamecolor shadow-md bg-white rounded-[100px] h-[45px] pr-[50px] w-full" type="text" placeholder="search.." name="search" value="{{request('search')}}">
+                <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.1)] w-[45px] rounded-full scale-[0.8] group hover:bg-gamecolor transition-all"><i class="fa-solid fa-magnifying-glass text-gamecolor group-hover:text-white transition-all"></i></button>
+            </form>
+            @csrf
+            <div id="results" class="max-w-[768px] mx-auto flex flex-col gap-2 max-h-[450px] overflow-auto mt-4 absolute top-[50px] left-[50%] translate-x-[-50%] bg-[rgba(0,0,0,0.8)] px-4 z-[10] backdrop-blur-[10px] shadow-[0 0 20px white]">
+            </div>
         </div>
     </section>
 
@@ -93,17 +94,17 @@
                         if (data.length > 0) {
                             data.forEach(item => {
                                 results += `
-                                    <a href="/game/${item.id}" style="display:flex; align-items:center; gap:10px; padding:5px 0;">
-                                        <img src="${item.image_url || item.cover}" alt="${item.title || item.name}" width="60">
-                                        <p>${item.title || item.name}</p>
+                                    <a href="/game/${item.db_id}" style="display:flex; align-items:center; gap:10px; padding:5px 0;">
+                                        <img src="${item.image_url}" alt="${item.title}" width="60">
+                                        <p>${item.title}</p>
                                     </a>
                                 `;
                             });
 
                             // Add "View All Results" button
                             results += `
-                                <div style="margin-top:10px;">
-                                    <a href="/search/games/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:#007bff; color:white; border-radius:4px; text-decoration:none;">
+                                <div style="margin-top:10px; padding-bottom:30px; display:flex; justify-content:center; position:sticky; bottom:0;">
+                                    <a href="/search/games/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:#ca8a04; color:white; border-radius:20px; text-decoration:none;">
                                         View All Results
                                     </a>
                                 </div>

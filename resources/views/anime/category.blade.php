@@ -9,7 +9,7 @@
     <section>
         <h1 class="text-center mb-12 text-animecolor text-[1.6rem] lg:text-[2rem] uppercase font-bold">Anime</h1>
         <div class="relative">
-            <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="game-search-form">
+            <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="anime-search-form">
                 <input id="anime-search-input" class="text-animecolor shadow-animecolor shadow-md bg-white rounded-[100px] h-[45px] pr-[50px] w-full" type="text" placeholder="search.." name="search" value="{{request('search')}}">
                 <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.1)] w-[45px] rounded-full scale-[0.8] group hover:bg-animecolor transition-all"><i class="fa-solid fa-magnifying-glass text-animecolor group-hover:text-white transition-all"></i></button>
             </form>
@@ -143,7 +143,7 @@
 
                             // Add "View All Results" button
                             results += `
-                                <div style="margin-top:10px; padding-bottom:30px; display:flex; justify-content:center;">
+                                <div style="margin-top:10px; padding-bottom:30px; display:flex; justify-content:center; position:sticky; bottom:0;">
                                     <a href="/search/anime/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:#dc2626; color:white; border-radius:20px; text-decoration:none;">
                                         View All Results
                                     </a>

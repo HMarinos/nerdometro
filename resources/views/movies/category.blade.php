@@ -9,7 +9,7 @@
     <section>
         <h1 class="text-center mb-12 text-moviecolor  uppercase font-bold">Movies</h1>
         <div class="relative">
-            <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="game-search-form">
+            <form class="text-center max-w-[768px] mx-auto flex items-center" method="GET" action="#" id="movie-search-form">
                 <input id="movie-search-input" class="text-moviecolor shadow-moviecolor shadow-md bg-white rounded-[100px] h-[45px] pr-[50px] w-full" type="text" placeholder="search.." name="search" value="{{request('search')}}">
                 <button class="-ml-[50px] h-[45px] bg-[rgba(0,0,0,0.1)] w-[45px] rounded-full scale-[0.8] group hover:bg-moviecolor transition-all"><i class="fa-solid fa-magnifying-glass text-moviecolor group-hover:text-white transition-all"></i></button>
             </form>
@@ -131,22 +131,18 @@
                         let results = '';
                         if (data.length > 0) {
                             data.forEach(item => {
-                                if (item.db_id) {
-                                    results += `
-                                        <a href="/movie/${item.db_id}" style="display:flex; align-items:center; gap:10px; padding:5px 0;">
-                                            <img src="${item.image_url}" alt="${item.title}" width="60">
-                                            <p>${item.title}</p>
-                                        </a>
-                                    `;
-                                } else {
-                                    console.warn("Missing db_id for result", item);
-                                }
+                                results += `
+                                    <a href="/movie/${item.db_id}" style="display:flex; align-items:center; gap:10px; padding:5px 0;">
+                                        <img src="${item.image_url}" alt="${item.title}" width="60">
+                                        <p>${item.title}</p>
+                                    </a>
+                                `;
                             });
 
                             // Add "View All Results" button
                             results += `
-                                <div style="margin-top:10px; display:flex; justify-content:center;">
-                                    <a href="/search/movies/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:rebeccapurple; color:white; border-radius:20px; text-decoration:none;">
+                                <div style="margin-top:10px; padding-bottom:30px; display:flex; justify-content:center; position:sticky; bottom:0;">
+                                    <a href="/search/movies/all?query=${encodeURIComponent(query)}" style="display:inline-block; padding:5px 10px; background:#2563eb; color:white; border-radius:20px; text-decoration:none;">
                                         View All Results
                                     </a>
                                 </div>

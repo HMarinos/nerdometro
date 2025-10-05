@@ -22,12 +22,12 @@ export default {
                 bold: 700,
             },
             colors: {
-                animecolor: colors.red[600],
-                moviecolor: colors.blue[600],
-                gamecolor: colors.yellow[600],
+                animecolor: colors.rose[600],
+                moviecolor: colors.violet[600],
+                gamecolor: colors.teal[600],
             },
             backgroundImage: {
-                customgrad: "linear-gradient(45deg, #dc2626, #2563eb, #ca8a04)",
+                customgrad: "linear-gradient(45deg, #e11d48, #7c3aed, #0d9488)",
             },
         },
     },
